@@ -1,3 +1,3 @@
 # Gomoku
 
-Creation d'un morpion en groupe de deux
+Création d'un morpion en groupe de deux
