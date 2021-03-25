@@ -1,5 +1,7 @@
 public class Screen {
+
     private int size;
+    private final char[][] image;
 
 
     char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
@@ -10,12 +12,35 @@ public class Screen {
 
     Screen(int size_) {
         size = size_;
+        this.image = new char[size][size];
     }
+
+    public void clear() {
+        for(int r = 0; r < size; r++) {
+            for(int c = 0; c < size ; c++) {
+                image[c][r] = ' ';
+                }
+            }
+        }
 
 
     public void display() {
-        for (int i = 0; i < size; i++) {
-            System.out.print('-');
+        displayBar();
+        for(int r = 0; r < size ;r++) {
+            System.out.print("|");
+            for(int c = 0; c < size ; c++) {
+                System.out.print(image[c][r]);
+                }
+            System.out.println("|");
+            }
+            displayBar();
+        }
+    
+    private void displayBar() {
+        System.out.print("+");
+        for(int c = 0; c < size ; c++) {
+            System.out.print("-");
+            }
+        System.out.println("+");
         }
     }
-}
