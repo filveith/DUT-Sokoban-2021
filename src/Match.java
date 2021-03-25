@@ -7,7 +7,6 @@ public class Match {
     static PrintStream out = System.out;
 
     public void userInterface(){
-        System.out.println("Où voulez vous jouer ? ");
         boolean boucler = true;
         while (boucler) {
             out.println("* Menu *");

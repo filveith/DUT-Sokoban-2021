@@ -25,9 +25,14 @@ public class Screen {
 
 
     public void display() {
+        displayLetters();
         displayBar();
         for(int r = 0; r < size ;r++) {
-            System.out.print("|");
+            String lineNum = Integer.toString(r+1);
+            if(r<9) {
+                 lineNum = (" "+Integer.toString(r+1));
+            }
+            System.out.print(lineNum+"|");
             for(int c = 0; c < size ; c++) {
                 System.out.print(image[c][r]);
                 }
@@ -37,10 +42,22 @@ public class Screen {
         }
     
     private void displayBar() {
-        System.out.print("+");
+        System.out.print("  +");
         for(int c = 0; c < size ; c++) {
             System.out.print("-");
-            }
-        System.out.println("+");
         }
+        System.out.println("+");
     }
+
+    private void displayLetters(){
+        System.out.print("   ");
+        for(int i = 0; i<size/2; i++){
+            System.out.print(" "+alphabet[i]);
+        }
+        System.out.println("");
+    }
+
+    private void displayNumbers(){
+
+    }
+}
