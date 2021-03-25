@@ -1,7 +1,7 @@
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class match {
+public class Match {
 
     static Scanner in = new Scanner(System.in);
     static PrintStream out = System.out;
