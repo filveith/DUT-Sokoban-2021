@@ -14,7 +14,7 @@ public class Screen {
 
     Screen(int size_) {
         size = size_;
-        this.image = new char[size*2][size*2];
+        this.image = new char[size*2][size];
     }
 
     public boolean checkUserInput(char letter, int chiffre){
@@ -81,5 +81,13 @@ public class Screen {
             System.out.print(" "+alphabet[i]);
         }
         System.out.println("");
+    }
+
+    public char[][] getImage() {
+        return this.image;
+    }
+
+    public void getPosFromInt(int a, int b) {
+        System.out.println(alphabet[a/2] + String.valueOf(b+1));
     }
 }

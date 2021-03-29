@@ -3,7 +3,7 @@ package jeu;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class Match {
+public class UI {
 
     static Scanner in = new Scanner(System.in);
     static PrintStream out = System.out;
@@ -29,4 +29,6 @@ public class Match {
         }
         return "";
     }
+
+    
 }

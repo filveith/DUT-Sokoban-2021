@@ -5,13 +5,14 @@ public class Main {
     static char x;
     static int y;
     public static void main(String[] args) {
-        Screen s = new Screen(26);  //max 26 because the alphabet is 26 char long :)
-        Match m = new Match();
+        Screen s = new Screen(10);  //max 26 because the alphabet is 26 char long :)
+        UI m = new UI();
         s.clear();
         s.display();
         System.out.println("* Menu *");
         while(true){
-            String userInput = m.userInterface();
+            Game.getAllPlayableMoves(s);
+            String userInput = m.userInterface();      
             if (userInput.length() == 2){
                 x = userInput.charAt(0);
                 y = Integer.parseInt(userInput.substring(1));
