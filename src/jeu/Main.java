@@ -4,11 +4,15 @@ public class Main {
 
     static char x;
     static int y;
+    static boolean boot = true;
+    
+
     public static void main(String[] args) {
-        Screen s = new Screen(26);  //max 26 because the alphabet is 26 char long :)
-        Match m = new Match();
+        UI m = new UI();    
+        Screen s = new Screen(bootMain());  //max 26 because the alphabet is 26 char long :)
         s.clear();
         s.display();
+        
         System.out.println("* Menu *");
         while(true){
             String userInput = m.userInterface();
@@ -26,5 +30,14 @@ public class Main {
                 System.out.println("Erreur: Le point sélectionné n'est pas disponible");
             }
         }
+    }
+
+    public static int bootMain() {
+        UI m = new UI();
+        if (boot) {
+            boot = false;
+           return (m.taillePlateau());
+        }
+        return 0;
     }
 }

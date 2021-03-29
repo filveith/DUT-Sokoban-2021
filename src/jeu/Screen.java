@@ -14,7 +14,7 @@ public class Screen {
 
     Screen(int size_) {
         size = size_;
-        this.image = new char[size*2][size*2];
+        this.image = new char[size*2][size];
     }
 
     public boolean checkUserInput(char letter, int chiffre){
