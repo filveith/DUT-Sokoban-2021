@@ -18,7 +18,7 @@ public class Match {
                 case "/quit":
                     out.println("-> Bye.");
                     boucler = false;
-                    break;
+                    System.exit(0);
                 default:
                     if (commande.length() == 2 || commande.length() == 3){
                         return commande;
