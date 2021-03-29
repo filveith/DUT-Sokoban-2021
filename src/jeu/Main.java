@@ -5,7 +5,7 @@ public class Main {
     static char x;
     static int y;
     public static void main(String[] args) {
-        Screen s = new Screen(11);  //max 26 because the alphabet is 26 char long :)
+        Screen s = new Screen(26);  //max 26 because the alphabet is 26 char long :)
         Match m = new Match();
         s.clear();
         s.display();
