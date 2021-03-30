@@ -28,13 +28,19 @@ public class UI {
     }
 
     public void nbJoueur() {
-        out.println("Voulez-vous contre l'ordinateur(O) ou contre un humain(H) ? ");
-        String adversaire = in.nextLine().trim();
-        if (adversaire.contains("H")) {
-            out.println("Nom du joueur 1: ");
-            String joueur1 = in.nextLine().trim();
-        } else if (adversaire.contains("O")) {
-            
+        while(true){
+            out.println("Voulez-vous contre l'ordinateur(O) ou contre un humain(H) ? ");
+            String adversaire = in.nextLine().trim();
+            if (adversaire.contains("H")) {
+                out.println("Nom du joueur 1: ");
+                Joueur j1 = new Joueur(in.nextLine().trim());
+                out.println("Nom du joueur 2: ");
+                Joueur j2 = new Joueur(in.nextLine().trim());
+            } else if (adversaire.contains("O")) {
+                Joueur jIA = new Joueur("IA");
+            } else {
+                out.println("erreur : la valeur entréé n'est pas valable");
+            }
         }
     }
 

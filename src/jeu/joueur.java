@@ -1,8 +1,12 @@
 package jeu;
 
-public class joueur {
+public class Joueur {
     
+    String nomJoueur;
+    int numJoueur;
+
     Joueur(String nomJoueur) {
+        this.nomJoueur = nomJoueur;
         
     }
 }
