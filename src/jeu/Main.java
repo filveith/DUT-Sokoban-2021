@@ -15,7 +15,8 @@ public class Main {
         
         System.out.println("* Menu *");
         while(true){
-            String userInput = m.userInterface();
+            Game.getAllPlayableMoves(s);
+            String userInput = m.userInterface();      
             if (userInput.length() == 2){
                 x = userInput.charAt(0);
                 y = Integer.parseInt(userInput.substring(1));

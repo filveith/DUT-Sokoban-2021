@@ -82,4 +82,12 @@ public class Screen {
         }
         System.out.println("");
     }
+
+    public char[][] getImage() {
+        return this.image;
+    }
+
+    public void getPosFromInt(int a, int b) {
+        System.out.println(alphabet[a/2] + String.valueOf(b+1));
+    }
 }

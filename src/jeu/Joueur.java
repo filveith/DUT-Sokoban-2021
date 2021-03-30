@@ -7,5 +7,6 @@ public class Joueur {
 
     Joueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
+        
     }
 }

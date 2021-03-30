@@ -42,6 +42,7 @@ public class UI {
                 out.println("erreur : la valeur entréé n'est pas valable");
             }
         }
+
     }
 
     public String userInterface(){
@@ -64,4 +65,6 @@ public class UI {
         }
         return "";
     }
+
+    
 }
