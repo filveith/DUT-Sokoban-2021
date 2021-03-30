@@ -5,7 +5,6 @@ public class Main {
     static char x;
     static int y;
     static boolean boot = true;
-    
 
     public static void main(String[] args) {
         UI m = new UI();    
@@ -37,7 +36,8 @@ public class Main {
         UI m = new UI();
         if (boot) {
             boot = false;
-           return (m.taillePlateau());
+            m.nbJoueur();
+            return (m.taillePlateau());
         }
         return 0;
     }

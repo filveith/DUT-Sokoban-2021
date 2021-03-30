@@ -33,11 +33,11 @@ public class UI {
             String adversaire = in.nextLine().trim();
             if (adversaire.contains("H")) {
                 out.println("Nom du joueur 1: ");
-                Joueur j1 = new Joueur(in.nextLine().trim());
+                Joueur j1 = new Joueur(in.nextLine().trim(), 0);
                 out.println("Nom du joueur 2: ");
-                Joueur j2 = new Joueur(in.nextLine().trim());
+                Joueur j2 = new Joueur(in.nextLine().trim(), 1);
             } else if (adversaire.contains("O")) {
-                Joueur jIA = new Joueur("IA");
+                Joueur jIA = new Joueur("IA", 1);
             } else {
                 out.println("erreur : la valeur entréé n'est pas valable");
             }
