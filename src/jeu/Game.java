@@ -10,12 +10,12 @@ public class Game {
 
 
         ArrayList<String> moves = new ArrayList<>();
-        char[][] imageScreen = screen.getImage();
+        Case[][] imageScreen = Screen.getImage();
 
 
         for (int i = 0; i < imageScreen.length; i ++) {
             for (int j = 0; j < imageScreen[i].length; j++) {
-                if (imageScreen[i][j] != ' ') {
+                if (imageScreen[i][j].nature != ' ') {
                     screen.getPosFromInt(i, j);
                 }
             }

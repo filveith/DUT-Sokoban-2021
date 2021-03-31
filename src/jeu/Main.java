@@ -21,7 +21,7 @@ public class Main {
                 y = Integer.parseInt(userInput.substring(1,3));
             }
             if(s.checkUserInput(x, y)){
-                s.setPoint(x, y);
+                s.setPoint(x, y, 'X');
                 s.display();
             } else {
                 System.out.println("Erreur: Le point sélectionné n'est pas disponible");
