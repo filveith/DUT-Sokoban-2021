@@ -9,6 +9,7 @@ public class UI {
     static PrintStream out = System.out;
     Screen s;
 
+    //Only on game start
     public int taillePlateau(){
         int taillePlateauInt=10;
         out.println("Quel taille de plateau voulez-vous ? (entre 5 et 26)");
@@ -33,11 +34,11 @@ public class UI {
             String adversaire = in.nextLine().trim();
             if (adversaire.contains("H")) {
                 out.println("Nom du joueur 1: ");
-                Joueur j1 = new Joueur(in.nextLine().trim(), 0);
+                
                 out.println("Nom du joueur 2: ");
-                Joueur j2 = new Joueur(in.nextLine().trim(), 1);
+                
             } else if (adversaire.contains("O")) {
-                Joueur jIA = new Joueur("IA", 1);
+                
             } else {
                 out.println("erreur : la valeur entréé n'est pas valable");
             }
@@ -65,6 +66,4 @@ public class UI {
         }
         return "";
     }
-
-    
 }

@@ -5,6 +5,7 @@ public class Main {
     static char x;
     static int y;
     static boolean boot = true;
+    static char nature = 'X';
 
     public static void main(String[] args) {
         UI m = new UI();    
@@ -31,16 +32,19 @@ public class Main {
             }
 
             if(s.checkUserInput(x, y)){
-                s.setPoint(x, y, 'X');
                 s.display();
                 if (playersTurn == 1) {
                     j1.setCoupJouee(userInput);
+                    nature = j1.natureJoueur;
                     playersTurn++;
                 } else if (playersTurn == 2) {
                     j2.setCoupJouee(userInput);
+                    nature = j2.natureJoueur;
                     playersTurn--;
                 }
-
+                System.out.println("x = " + x + " y = "+ y);
+                s.setPoint(x, y, nature);
+                s.display();
             } else {
                 System.out.println("Erreur: Le point sélectionné n'est pas disponible");
             }
@@ -51,7 +55,7 @@ public class Main {
         UI m = new UI();
         if (boot) {
             boot = false;
-            m.nbJoueur();
+            //m.nbJoueur();
             return (m.taillePlateau());
         }
         return 0;
