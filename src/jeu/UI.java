@@ -28,22 +28,13 @@ public class UI {
         }
     }
 
-    public void nbJoueur() {
+    public String nbJoueur(int nbJoueur) {
         while(true){
-            out.println("Voulez-vous contre l'ordinateur(O) ou contre un humain(H) ? ");
-            String adversaire = in.nextLine().trim();
-            if (adversaire.contains("H")) {
-                out.println("Nom du joueur 1: ");
-                
-                out.println("Nom du joueur 2: ");
-                
-            } else if (adversaire.contains("O")) {
-                
-            } else {
-                out.println("erreur : la valeur entréé n'est pas valable");
-            }
+            out.println("Nom du joueur "+ nbJoueur +" : ");
+            String nomJoueur = in.nextLine().trim();
+            if (nomJoueur == "") nomJoueur = "Joueur"+nbJoueur;
+            return nomJoueur;
         }
-
     }
 
     public String userInterface(){

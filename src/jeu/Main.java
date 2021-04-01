@@ -1,21 +1,25 @@
 package jeu;
-
+import java.io.PrintStream;
+import java.util.Scanner;
 public class Main {
 
+    static Scanner in = new Scanner(System.in);
     static char x;
     static int y;
     static boolean boot = true;
     static char nature = 'X';
+    static Joueur jH = new Joueur("Joueur1",0,'X');
+    static Joueur j2 = new Joueur("Joueur2",1,'O');
+    static int playersTurn = 1;
 
     public static void main(String[] args) {
         UI m = new UI();    
         Screen s = new Screen(bootMain());  //max 26 because the alphabet is 26 char long :)
-        Joueur j1 = new Joueur("Joueur1",0,'X');
-        Joueur j2 = new Joueur("Joueur2",1,'O');
+       
         s.clear();
         s.display();
 
-        int playersTurn = 1;
+        
 
         
         System.out.println("* Menu *");
@@ -34,8 +38,8 @@ public class Main {
             if(s.checkUserInput(x, y)){
                 s.display();
                 if (playersTurn == 1) {
-                    j1.setCoupJouee(userInput);
-                    nature = j1.natureJoueur;
+                    jH.setCoupJouee(userInput);
+                    nature = jH.natureJoueur;
                     playersTurn++;
                 } else if (playersTurn == 2) {
                     j2.setCoupJouee(userInput);
@@ -55,9 +59,23 @@ public class Main {
         UI m = new UI();
         if (boot) {
             boot = false;
-            //m.nbJoueur();
+            nbJoueur();
             return (m.taillePlateau());
         }
         return 0;
+    }
+
+    public static void nbJoueur() {
+        UI m = new UI();
+        System.out.println("Voulez-vous jouer contre l'ordinateur(O) ou contre un humain(H) ? ");
+        String adversaire = in.nextLine().trim();
+
+        jH.nomJoueur = m.nbJoueur(1);
+
+        if (adversaire.charAt(0) == 'H') {
+            j2.nomJoueur = m.nbJoueur(2);
+        } else if (adversaire.charAt(0) == 'O'){
+            j2.nomJoueur = "IA";
+        }
     }
 }
