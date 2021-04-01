@@ -28,7 +28,8 @@ public class UI {
         }
     }
 
-    public String nbJoueur(int nbJoueur) {
+    //choix du nom du joueur 1 et 2
+    public String choixNomJoueur(int nbJoueur) {
         while(true){
             out.println("Nom du joueur "+ nbJoueur +" : ");
             String nomJoueur = in.nextLine().trim();
@@ -37,10 +38,10 @@ public class UI {
         }
     }
 
-    public String userInterface(){
+    public String userInterface(String nomJoueur){
         boolean boucler = true;
         while (boucler) {
-            out.println("Où voulez vous jouer ? ");
+            out.println("Où voulez vous jouer " + nomJoueur + " ? ");
             String commande = in.nextLine().trim();
             switch (commande) {
                 case "/quit":

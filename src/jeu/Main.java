@@ -1,5 +1,4 @@
 package jeu;
-import java.io.PrintStream;
 import java.util.Scanner;
 public class Main {
 
@@ -19,13 +18,15 @@ public class Main {
         s.clear();
         s.display();
 
-        
-
-        
         System.out.println("* Menu *");
         while(true){
             Game.getAllPlayableMoves(s);
-            String userInput = m.userInterface();      
+            String userInput;      
+            if (playersTurn == 1) {
+                userInput = m.userInterface(jH.nomJoueur);
+            } else {
+                userInput = m.userInterface(j2.nomJoueur);
+            }
             
             if (userInput.length() == 2){
                 x = userInput.charAt(0);
@@ -46,7 +47,6 @@ public class Main {
                     nature = j2.natureJoueur;
                     playersTurn--;
                 }
-                System.out.println("x = " + x + " y = "+ y);
                 s.setPoint(x, y, nature);
                 s.display();
             } else {
@@ -67,15 +67,27 @@ public class Main {
 
     public static void nbJoueur() {
         UI m = new UI();
-        System.out.println("Voulez-vous jouer contre l'ordinateur(O) ou contre un humain(H) ? ");
-        String adversaire = in.nextLine().trim();
-
-        jH.nomJoueur = m.nbJoueur(1);
-
-        if (adversaire.charAt(0) == 'H') {
-            j2.nomJoueur = m.nbJoueur(2);
-        } else if (adversaire.charAt(0) == 'O'){
-            j2.nomJoueur = "IA";
+        String adversaire = "O";
+        boolean boucle = true;
+        while (boucle){
+            System.out.println("Voulez-vous jouer contre l'ordinateur(O) ou contre un humain(H) ? ");
+            adversaire = in.nextLine().trim();
+            char choixAdversaire = adversaire.charAt(0);
+            try {
+                if (choixAdversaire == 'H' || choixAdversaire == 'h') {
+                    jH.nomJoueur = m.choixNomJoueur(1);
+                    j2.nomJoueur = m.choixNomJoueur(2);
+                    boucle = false;
+                } else if (choixAdversaire == 'O' || choixAdversaire == 'o'){
+                    jH.nomJoueur = m.choixNomJoueur(1);
+                    j2.nomJoueur = "IA";
+                    boucle = false;
+                } else {
+                    System.out.println("erreur: la valeur entrée n'est pas valable");
+                }    
+            } catch (Exception e) {
+                System.out.println("erreur: la valeur entrée n'est pas valable");
+            }
         }
     }
 }
