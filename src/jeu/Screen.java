@@ -1,12 +1,14 @@
 package jeu;
 
+import java.util.ArrayList;
+
 public class Screen {
 
     private int size;
     private static Case[][] image;
     
 
-    char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+    private static char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
                        'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
                        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
                     };
@@ -17,7 +19,7 @@ public class Screen {
         image = new Case[size*2][size];
     }
 
-    public static Case[][] getImage() {
+    public Case[][] getImage() {
         return image;
     }
 
@@ -87,11 +89,80 @@ public class Screen {
         System.out.println("");
     }
 
-    public void getPosFromInt(int a, int b) {
-        System.out.println(alphabet[a/2] + String.valueOf(b+1));
+    public String getPosFromInt(int a, int b) {
+       return alphabet[a/2] + String.valueOf(b+1);
     }
 
-    public void getCaseFromInt(int a, int b) {
-        System.out.println(alphabet[a/2] + String.valueOf(b+1));
+    public static Case getCaseFromString(String string_) {
+        char letter = string_.charAt(0);
+        int indexOfLetter = new String(alphabet).indexOf(letter);
+        int number = Integer.parseInt(String.valueOf(string_.charAt(1)));
+        return image[indexOfLetter][number - 1];
+    }
+
+    public int getNbCoupsJoues() {
+        int nb = 0;
+        for (int i = 0; i < image.length; i++) {
+            for (int j = 0; j < image[i].length; j++) {
+                if (image[i][j].getNature() != ' ') {
+                    nb++;
+                }
+            }
+        }
+        return nb;
+    }
+
+    public ArrayList<Case> getAllPossiblePlays() {        
+        ArrayList<Case> possibleMoves = new ArrayList<>();
+        ArrayList<Case> adjacentCases = new ArrayList<>();
+        int nbCoupsJoues = getNbCoupsJoues();
+
+        //If there's at least one move already played
+        if (nbCoupsJoues >= 1) {
+
+            //Check every cases
+            for (int i = 0; i < image.length; i++) {
+                for (int j = 0; j < image[i].length; j = j + 2) {
+
+                    //If it finds a non empty case
+                    if (image[i][j].getNature() != ' ') {
+                        nbCoupsJoues++;
+                        adjacentCases.clear();
+
+                        //Check all around the case to see if there's another case
+                        for (int a = -2; a <= 2; a = a + 2) {
+                            for (int b = -1; b <= 1; b++) {
+                                //If a case exists, add it
+                                try {
+                                    if (image[i + a][j + b] != null && image[i + a][j + b] != image[i][j]) {
+                                        adjacentCases.add(image[i + a][j + b]);
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("Probleme mec " + e);
+                                }
+                                
+                            }
+                        }
+                        //Then, for each non empty case, add the adjacent cases to the list of possible moves
+                        possibleMoves.addAll(adjacentCases);
+                    }
+                }
+                
+            }
+            
+            System.out.println("Size " + possibleMoves.size());
+
+        //Else (if there are no move already played)
+        } else {
+
+            //Add all cases
+            for (int i = 0; i < image.length; i++) {
+                for (int j = 0; j < image[i].length; j++) {
+                    possibleMoves.add(image[i][j]);
+                }
+            }
+        }
+        System.out.println(possibleMoves.size());
+        return possibleMoves;
     }
 }
