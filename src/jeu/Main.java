@@ -20,7 +20,7 @@ public class Main {
 
         System.out.println("* Menu *");
         while(true){
-            Game.getAllPlayableMoves(s);
+            
             String userInput;      
             if (playersTurn == 1) {
                 userInput = m.userInterface(jH.nomJoueur);
