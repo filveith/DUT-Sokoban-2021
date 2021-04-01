@@ -6,4 +6,8 @@ public class Verification {
         
         return "";
     }
+
+    public void verifGagant() {
+        
+    }
 }
