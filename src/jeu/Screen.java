@@ -53,18 +53,11 @@ public class Screen {
         return 0;
     }
 
-<<<<<<< HEAD
-    private int getPostionOfLetter(char letter){
-        return(new String(alphabet).indexOf(letter));
-    }
-
-
-=======
+    //donne la position d'une lettre dans l'alphabet
     private int getPositionOfLetter(char letter){
         return(new String(alphabet).indexOf(letter));
     }
 
->>>>>>> 86554142f811d56a43b7c62869e7fd966d5b23c4
     //vide le terrain des pions
     public void clear() {
         for(int r = 0; r < size; r++) {

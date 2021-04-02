@@ -8,7 +8,6 @@ public class UI {
     static Scanner in = new Scanner(System.in);
     static PrintStream out = System.out;
 
-
     //Only on game start
     public int taillePlateau(){
         int taillePlateauInt=10;
