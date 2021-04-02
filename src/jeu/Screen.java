@@ -23,6 +23,7 @@ public class Screen {
         return image;
     }
 
+    //verifie si la valeur entree par l'utilisateur est valable
     public boolean checkUserInput(char letter, int chiffre){
         int value = new String(alphabet).indexOf(letter);
         if(value != -1 && 0 < chiffre && chiffre <= size) {
@@ -31,6 +32,7 @@ public class Screen {
         return false;
     }
 
+    //set la position d'un pion sur le plateau avec sa nature
     public int setPoint(char letter, int chiffre, char nature){
         int x = getPostionOfLetter(letter);
         if (x == 0){
@@ -44,10 +46,7 @@ public class Screen {
         return 0;
     }
 
-    private int getPostionOfLetter(char letter){
-        return(new String(alphabet).indexOf(letter));
-    }
-
+    //vide le terrain des pions
     public void clear() {
         for(int r = 0; r < size; r++) {
             for(int c = 0; c < size*2; c++) {
@@ -56,6 +55,7 @@ public class Screen {
         }
     }
 
+    //dessine le terrain avec les pions joués
     public void display() {
         displayLetters();
         displayBar();
@@ -73,6 +73,7 @@ public class Screen {
         displayBar();
     }
     
+    //dessine la barre superieure et inferieur (ex:  +-------------------+)
     private void displayBar() {
         System.out.print("  +");
         for(int c = 0; c < size*2 ; c++) {
@@ -81,6 +82,7 @@ public class Screen {
         System.out.println("-+");
     }
 
+    //dessine les lettres des colonnes  
     private void displayLetters(){
         System.out.print("   ");
         for(int i = 0; i<size; i++){

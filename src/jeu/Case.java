@@ -1,9 +1,5 @@
 package jeu;
 
-import java.util.ArrayList;
-
-
-
 public class Case {
 
     char nature;
@@ -19,6 +15,4 @@ public class Case {
     public void setNature(char nat) {
         this.nature = nat;
     }
-
-    
 }

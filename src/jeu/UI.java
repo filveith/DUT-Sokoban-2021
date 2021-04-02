@@ -9,10 +9,39 @@ public class UI {
     static PrintStream out = System.out;
     Screen s;
 
-    public String userInterface(){
+    //Only on game start
+    public int taillePlateau(){
+        int taillePlateauInt=10;
+        out.println("Quel taille de plateau voulez-vous ? (entre 5 et 26)");
+        while (true){
+            String taillePlateau = in.nextLine().trim();
+            try {
+                taillePlateauInt = Integer.parseInt(taillePlateau);    
+            } catch (Exception e) {
+                out.println("erreur: la valeur entrée n'est pas valable" + e);
+            }
+
+            if (taillePlateauInt <= 26 && taillePlateauInt >= 5) {
+                return taillePlateauInt;
+            }
+            out.println("erreur: la valeur entrée n'est pas valable");
+        }
+    }
+
+    //choix du nom du joueur 1 et 2
+    public String choixNomJoueur(int nbJoueur) {
+        while(true){
+            out.println("Nom du joueur "+ nbJoueur +" : ");
+            String nomJoueur = in.nextLine().trim();
+            if (nomJoueur == "") nomJoueur = "Joueur"+nbJoueur;
+            return nomJoueur;
+        }
+    }
+
+    public String userInterface(String nomJoueur){
         boolean boucler = true;
         while (boucler) {
-            out.println("Où voulez vous jouer ? ");
+            out.println("Où voulez vous jouer " + nomJoueur + " ? ");
             String commande = in.nextLine().trim();
             switch (commande) {
                 case "/quit":
@@ -29,6 +58,4 @@ public class UI {
         }
         return "";
     }
-
-    
 }
