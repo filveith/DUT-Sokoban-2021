@@ -25,16 +25,23 @@ public class Screen {
 
     //verifie si la valeur entree par l'utilisateur est valable
     public boolean checkUserInput(char letter, int chiffre){
+        String play = Character.toString(letter) + String.valueOf(chiffre);
         int value = new String(alphabet).indexOf(letter);
-        if(value != -1 && 0 < chiffre && chiffre <= size) {
-            return true;
+        if(value != -1 && 0 < chiffre && chiffre <= size){
+            if (getAllPossiblePlays().contains(getCaseFromString(play))) {
+                return true;
+            } else {
+                System.out.println("Le coup " + play + " n'est pas jouable");
+                return false;
+            }    
         }
+        System.out.println("Le coup " + play + " n'est pas valable");
         return false;
     }
 
     //set la position d'un pion sur le plateau avec sa nature
     public int setPoint(char letter, int chiffre, char nature){
-        int x = getPostionOfLetter(letter);
+        int x = getPositionOfLetter(letter);
         if (x == 0){
             x++;
         } else if(x == 1){
@@ -46,11 +53,18 @@ public class Screen {
         return 0;
     }
 
+<<<<<<< HEAD
     private int getPostionOfLetter(char letter){
         return(new String(alphabet).indexOf(letter));
     }
 
 
+=======
+    private int getPositionOfLetter(char letter){
+        return(new String(alphabet).indexOf(letter));
+    }
+
+>>>>>>> 86554142f811d56a43b7c62869e7fd966d5b23c4
     //vide le terrain des pions
     public void clear() {
         for(int r = 0; r < size; r++) {
