@@ -181,21 +181,21 @@ public class Screen {
         } else {
 
             //Add all cases
-            for (int i = 0; i < image.length; i++) {
-                for (int j = 0; j < image[i].length; j = j + 2) {
+            for (int i = 0; i < image.length; i = i + 2) {
+                for (int j = 0; j < image[i].length; j++) {
                     possibleMoves.add(image[i][j]);
                 }
             }
         }
         if (possibleMoves.size() == 100) {
             System.out.println("Play anywhere");
+            
         } else {
             System.out.println("You can play at : ");
             for (Case c : possibleMoves) {
                 System.out.println(getStringFromCase(c));
             }
         }
-        
         return possibleMoves;
     }
 }
