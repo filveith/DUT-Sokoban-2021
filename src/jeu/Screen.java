@@ -100,6 +100,20 @@ public class Screen {
         return image[indexOfLetter][number - 1];
     }
 
+    public static String getStringFromCase(Case case_) {
+        String letter = "";
+        String nb = "";
+        for (int i = 0; i < image.length; i++) {
+            for (int j = 0; j < image[i].length; j++) {
+                if (image[i][j] == case_) {
+                    letter = Character.toString(alphabet[i/2]);
+                    nb = String.valueOf(j+1);
+                }
+            }
+        }
+        return letter.concat(nb);
+    }
+
     public int getNbCoupsJoues() {
         int nb = 0;
         for (int i = 0; i < image.length; i++) {
@@ -162,7 +176,10 @@ public class Screen {
                 }
             }
         }
-        System.out.println(possibleMoves.size());
+        for (Case c : possibleMoves) {
+            System.out.println(getStringFromCase(c));
+        }
+        
         return possibleMoves;
     }
 }
