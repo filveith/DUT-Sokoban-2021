@@ -1,7 +1,5 @@
 package jeu;
 
-
-
 public class Case {
 
     char nature;
@@ -17,6 +15,4 @@ public class Case {
     public void setNature(char nat) {
         this.nature = nat;
     }
-
-    
 }
