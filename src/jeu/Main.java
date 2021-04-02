@@ -11,8 +11,8 @@ public class Main {
         s.display();
         System.out.println("* Menu *");
         while(true){
-            s.getAllPossiblePlays();
-            String userInput = m.userInterface();      
+            //s.getAllPossiblePlays();
+            String userInput = m.userInterface(s);      
             if (userInput.length() == 2){
                 x = userInput.charAt(0);
                 y = Integer.parseInt(userInput.substring(1));
@@ -23,9 +23,7 @@ public class Main {
             if(s.checkUserInput(x, y)){
                 s.setPoint(x, y, 'X');
                 s.display();
-            } else {
-                System.out.println("Erreur: Le point sélectionné n'est pas disponible");
-            }
+            } 
         }
     }
 }
