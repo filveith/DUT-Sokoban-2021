@@ -41,7 +41,7 @@ public class Screen {
 
     //set la position d'un pion sur le plateau avec sa nature
     public int setPoint(char letter, int chiffre, char nature){
-        int x = getPostionOfLetter(letter);
+        int x = getPositionOfLetter(letter);
         if (x == 0){
             x++;
         } else if(x == 1){
@@ -51,6 +51,10 @@ public class Screen {
         }
         image[x][chiffre-1].setNature(nature);
         return 0;
+    }
+
+    private int getPositionOfLetter(char letter){
+        return(new String(alphabet).indexOf(letter));
     }
 
     //vide le terrain des pions
