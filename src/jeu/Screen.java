@@ -28,7 +28,9 @@ public class Screen {
         String play = Character.toString(letter) + String.valueOf(chiffre);
         int value = new String(alphabet).indexOf(letter);
         if(value != -1 && 0 < chiffre && chiffre <= size){
+            System.out.println(getAllPossiblePlays().contains(getCaseFromString(play)));
             if (getAllPossiblePlays().contains(getCaseFromString(play))) {
+                System.out.println("Possible");
                 return true;
             } else {
                 System.out.println("Le coup " + play + " n'est pas jouable");
