@@ -53,10 +53,7 @@ public class Screen {
         return 0;
     }
 
-<<<<<<< HEAD
     //donne la position d'une lettre dans l'alphabet
-=======
->>>>>>> 06e357316add24812925ed1263786a08694c8320
     private int getPositionOfLetter(char letter){
         return(new String(alphabet).indexOf(letter));
     }
