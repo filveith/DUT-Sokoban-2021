@@ -25,7 +25,7 @@ public class Screen {
 
     public boolean checkUserInput(char letter, int chiffre){
         int value = new String(alphabet).indexOf(letter);
-        if(value != -1 && 0 < chiffre && chiffre <= size){
+        if(value != -1 && 0 < chiffre && chiffre <= size) {
             return true;
         }
         return false;
@@ -59,7 +59,7 @@ public class Screen {
     public void display() {
         displayLetters();
         displayBar();
-        for(int r = 0; r < size ;r++) {
+        for(int r = 0; r < size; r++) {
             String lineNum = Integer.toString(r+1);
             if(r<9) {
                 lineNum = (" "+Integer.toString(r+1));
@@ -152,7 +152,7 @@ public class Screen {
                                         adjacentCases.add(image[i + a][j + b]);
                                     }
                                 } catch (Exception e) {
-                                    System.out.println("Probleme mec " + e);
+                                    //System.out.println("Probleme mec " + e);
                                 }
                                 
                             }
@@ -163,21 +163,24 @@ public class Screen {
                 }
                 
             }
-            
-            System.out.println("Size " + possibleMoves.size());
 
         //Else (if there are no move already played)
         } else {
 
             //Add all cases
             for (int i = 0; i < image.length; i++) {
-                for (int j = 0; j < image[i].length; j++) {
+                for (int j = 0; j < image[i].length; j = j + 2) {
                     possibleMoves.add(image[i][j]);
                 }
             }
         }
-        for (Case c : possibleMoves) {
-            System.out.println(getStringFromCase(c));
+        if (possibleMoves.size() == 100) {
+            System.out.println("Play anywhere");
+        } else {
+            System.out.println("You can play at : ");
+            for (Case c : possibleMoves) {
+                System.out.println(getStringFromCase(c));
+            }
         }
         
         return possibleMoves;
