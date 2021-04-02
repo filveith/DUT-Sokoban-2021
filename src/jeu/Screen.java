@@ -24,9 +24,15 @@ public class Screen {
     }
 
     public boolean checkUserInput(char letter, int chiffre){
+        String play = Character.toString(letter) + String.valueOf(chiffre);
         int value = new String(alphabet).indexOf(letter);
         if(value != -1 && 0 < chiffre && chiffre <= size){
-            return true;
+            if (getAllPossiblePlays().contains(getCaseFromString(play))) {
+                return true;
+            } else {
+                System.out.println("Le coup n'est pas jouable");
+                return false;
+            }    
         }
         return false;
     }
