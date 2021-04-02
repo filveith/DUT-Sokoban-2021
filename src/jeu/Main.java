@@ -37,7 +37,7 @@ public class Main {
             }
 
             if(s.checkUserInput(x, y)){
-                s.display();
+                //s.display();
                 if (playersTurn == 1) {
                     jH.setCoupJouee(userInput);
                     nature = jH.natureJoueur;

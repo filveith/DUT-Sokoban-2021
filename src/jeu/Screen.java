@@ -46,6 +46,11 @@ public class Screen {
         return 0;
     }
 
+    private int getPostionOfLetter(char letter){
+        return(new String(alphabet).indexOf(letter));
+    }
+
+
     //vide le terrain des pions
     public void clear() {
         for(int r = 0; r < size; r++) {
@@ -156,7 +161,6 @@ public class Screen {
                                 } catch (Exception e) {
                                     //System.out.println("Probleme mec " + e);
                                 }
-                                
                             }
                         }
                         //Then, for each non empty case, add the adjacent cases to the list of possible moves
