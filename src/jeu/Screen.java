@@ -186,7 +186,7 @@ public class Screen {
                 }
             }
         }
-        if (possibleMoves.size() == 100) {
+        if (possibleMoves.size() == image.length*image.length) {
             System.out.println("Play anywhere");
             
         } else {
