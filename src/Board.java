@@ -9,6 +9,8 @@ public class Board {
     final private char targetSign = 'x';
     final private char wallSign = '#';
     private static Case[][] image;
+    private boolean movedOnTarget = false;
+    private int counter = 0;
 
     Player p = new Player();
 
@@ -126,10 +128,22 @@ public class Board {
                 default:
                     break;
             }
+
+            
+            
             System.out.println("x = "+x+"   y = "+y);
             if(checkIfMovePossible(x, y)){
+                System.out.println("counter = "+counter+"    movedTarget = "+movedOnTarget);
+
                 setPoint(x, y, playerSign);
-                setPoint(p.getX(), p.getY(), emptySpaceSign);
+                
+                if (movedOnTarget && counter == 1) {
+                    movedOnTarget = false;
+                    counter = 0;
+                    setPoint(p.getX(), p.getY(), targetSign);
+                } else setPoint(p.getX(), p.getY(), emptySpaceSign);
+                
+
                 p.setPositionOfPlayer(x, y);
             } 
         }
@@ -141,7 +155,12 @@ public class Board {
         if(goToCase == '#' || goToCase == 'C' || goToCase == 'P'){
             System.out.println("false     nature = "+goToCase);
             return false;
+        } else if(goToCase == 'x'){
+            movedOnTarget = true;
+        } else if(movedOnTarget){
+            counter = 1;
         }
+
         System.out.println("true        nature = "+goToCase);
         return true;
     }

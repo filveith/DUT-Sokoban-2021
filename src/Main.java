@@ -1,7 +1,4 @@
 import java.util.Scanner;
-
-import jdk.nashorn.api.tree.WhileLoopTree;
-
 public class Main {
 
     static Board b = new Board("Hard-Coded Example", 6, 6) ;
@@ -22,7 +19,7 @@ public class Main {
         b.addTarget(3,1) ;
         b.addTarget(3,2) ;
         b.setPosition(3,4);
-        
+
         b.drawBoard();
         
         while (true) {
