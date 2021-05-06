@@ -7,7 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
         b.emptyBoard();
-
         b.drawBoard();
         
         b.addHorizontalWall(0,0,5) ;
@@ -19,14 +18,15 @@ public class Main {
         b.addTarget(3,1) ;
         b.addTarget(3,2) ;
         b.setPosition(3,4);
-
+       
         b.drawBoard();
         
         while (true) {
             b.movePlayer(userMovementInput());
-            b.drawBoard();    
+            b.checkIfTargetVisible();
+            b.drawBoard();  
+            if(b.checkIfWin()) break;
         }
-        
     }
 
     //ON peut en faire une seule fonctione avec verification

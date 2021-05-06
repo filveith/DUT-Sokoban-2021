@@ -9,16 +9,19 @@ public class Board {
     final private char targetSign = 'x';
     final private char wallSign = '#';
     private static Case[][] image;
-    private boolean movedOnTarget = false;
-    private int counter = 0;
+    private Case[][] targetList;
+    private int nbBox = 0;
 
     Player p = new Player();
+
+       
 
     Board(String boardName, int width, int height){
         this.boardName = boardName;
         this.height = height;
         this.width = width;
         image = new Case[this.width][this.height];
+        targetList = new Case[this.width][this.height];
     }
 
     /**
@@ -28,6 +31,15 @@ public class Board {
      */
     public Case[][] getImage() {
         return image;
+    }
+
+    /**
+     * Renvoie l'image de l'objet screen en question
+     * 
+     * @return l'image
+     */
+    public Case[][] getTargetList() {
+        return targetList;
     }
 
     //#region Getter/Setter
@@ -66,6 +78,7 @@ public class Board {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 image[x][y] = new Case(emptySpaceSign);
+                targetList[x][y] = new Case(emptySpaceSign);
             }
         }
     }
@@ -86,10 +99,12 @@ public class Board {
     
     public void addBox(int x, int y){
         setPoint(x,y,boxSign);
+        nbBox++;
     }
 
     public void addTarget(int x, int y){
         setPoint(x,y,targetSign);
+        targetList[x][y].setNature(targetSign);
     }
 
     public void setPosition(int x, int y){
@@ -129,40 +144,85 @@ public class Board {
                     break;
             }
 
-            
-            
-            System.out.println("x = "+x+"   y = "+y);
-            if(checkIfMovePossible(x, y)){
-                System.out.println("counter = "+counter+"    movedTarget = "+movedOnTarget);
-
+            //System.out.println("x = "+x+"   y = "+y);
+            if(checkIfMovePossible(x, y,movement, false)){
                 setPoint(x, y, playerSign);
                 
-                if (movedOnTarget && counter == 1) {
-                    movedOnTarget = false;
-                    counter = 0;
-                    setPoint(p.getX(), p.getY(), targetSign);
-                } else setPoint(p.getX(), p.getY(), emptySpaceSign);
-                
-
+                setPoint(p.getX(), p.getY(), emptySpaceSign);
                 p.setPositionOfPlayer(x, y);
             } 
         }
     }
     
-    public boolean checkIfMovePossible(int xFinal, int yFinal){
+    public boolean checkIfMovePossible(int xFinal, int yFinal, char movement, boolean recall){
         
         char goToCase = image[xFinal][yFinal].getNature();
-        if(goToCase == '#' || goToCase == 'C' || goToCase == 'P'){
-            System.out.println("false     nature = "+goToCase);
+        if(goToCase == '#' || goToCase == 'P'){
             return false;
-        } else if(goToCase == 'x'){
-            movedOnTarget = true;
-        } else if(movedOnTarget){
-            counter = 1;
+        } else if(goToCase == 'C' && !recall){
+            int x = xFinal;
+            int y = yFinal;
+            switch (movement) {
+                case 'L':
+                    x--;
+                    break;
+                case 'R':
+                    x++;
+                    break;
+                case 'U':
+                    y--;
+                    break;
+                case 'D':
+                    y++;
+                    break;
+                default:
+                    break;
+            }
+            if(checkIfMovePossible(x, y, movement, true)) setPoint(x, y, boxSign);
+            else return false;
+        } else if(goToCase == 'C' && recall){
+            return false;
         }
 
-        System.out.println("true        nature = "+goToCase);
         return true;
+    }
+
+    public void checkIfTargetVisible() {
+        for (int y = 0; y <= height; y++) {
+            for (int x = 0; x < width; x++) {
+                try {
+                    if(targetList[x][y].getNature() != '.'){
+                        if(image[x][y].getNature() != 'P' && image[x][y].getNature() != 'C' && image[x][y].getNature() != '#'){
+                            setPoint(x, y, targetSign);
+                        }
+                    }
+                } catch (Exception e) {
+                    //System.out.println("Error at checkIfTargetVisible()  : " + e);
+                }
+            }
+        }        
+    }
+
+    public boolean checkIfWin(){
+        int nbWinningBoxes = 0;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                try {
+                    if(targetList[x][y].getNature() != '.'){
+                        if(image[x][y].getNature() == 'C'){
+                            nbWinningBoxes++;
+                            if(nbWinningBoxes == nbBox){
+                                System.out.println("Félicitation vous avez gagné");
+                                return true;
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    //System.out.println("Error at checkIfTargetVisible()  : " + e);
+                }
+            }
+        } 
+        return false;
     }
 
     public void drawExampleBoard(){
