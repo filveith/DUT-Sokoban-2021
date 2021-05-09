@@ -3,16 +3,16 @@ public class Board {
     private int height;
     private int width;
     private String boardName;
-    final private char emptySpaceSign = '.';
-    final private char playerSign = 'P';
-    final private char boxSign = 'C';
-    final private char targetSign = 'x';
-    final private char wallSign = '#';
+    final public char emptySpaceSign = '.';
+    final public char playerSign = 'P';
+    final public char boxSign = 'C';
+    final public char targetSign = 'x';
+    final public char wallSign = '#';
     private static Case[][] image;
     private Case[][] targetList;
     private int nbBox = 0;
 
-    Player p = new Player();
+    Personnage p = new Personnage();
 
        
 
@@ -107,7 +107,7 @@ public class Board {
         targetList[x][y].setNature(targetSign);
     }
 
-    public void setPosition(int x, int y){
+    public void addPlayer(int x, int y){
         p.setPositionOfPlayer(x, y);
         setPoint(p.getX(),p.getY(),playerSign);
     }
@@ -119,6 +119,7 @@ public class Board {
         if (y != 0){
             y--;
         }*/
+        image[1][1].getNature();
         image[x][y].setNature(nature);
     }
     //#endregion
@@ -212,7 +213,7 @@ public class Board {
                         if(image[x][y].getNature() == 'C'){
                             nbWinningBoxes++;
                             if(nbWinningBoxes == nbBox){
-                                System.out.println("Félicitation vous avez gagné");
+                                System.out.println("\n_-* Félicitation vous avez gagné *-_\n\n");
                                 return true;
                             }
                         }
