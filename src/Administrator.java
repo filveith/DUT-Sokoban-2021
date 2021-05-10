@@ -19,6 +19,7 @@ public class Administrator {
       showDataBase();
       updateDataBase();
       // showDataBase();
+      closeDataBase();
    }
 
    private static void initDataBaseConnection() {
