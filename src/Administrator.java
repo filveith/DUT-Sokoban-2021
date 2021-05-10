@@ -21,7 +21,7 @@ public class Administrator {
       // showDataBase();
    }
 
-   public static void initDataBaseConnection() {
+   private static void initDataBaseConnection() {
       try {
 
          Class.forName("org.sqlite.JDBC");
@@ -35,7 +35,7 @@ public class Administrator {
       }
    }
 
-   public static void closeDataBase() {
+   private static void closeDataBase() {
       try {
          stmt.close();
          c.close();
@@ -44,75 +44,34 @@ public class Administrator {
       }
    }
 
-   public static void deletDataBase() {
+   private static void deletDataBase() {
 
       try {
-
-         // stmt = c.createStatement();
 
          String sql = "DELETE from COMPANY where ID=2;";
          stmt.executeUpdate(sql);
          c.commit();
 
-         ResultSet rs = stmt.executeQuery("SELECT * FROM COMPANY;");
-
-         while (rs.next()) {
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            int age = rs.getInt("age");
-            String address = rs.getString("address");
-            float salary = rs.getFloat("salary");
-            System.out.println("ID = " + id);
-            System.out.println("NAME = " + name);
-            System.out.println("AGE = " + age);
-            System.out.println("ADDRESS = " + address);
-            System.out.println("SALARY = " + salary);
-            System.out.println();
-         }
-         rs.close();
-         // stmt.close();
-         // c.close();
       } catch (Exception e) {
          errorDataBase(e);
       }
       System.out.println("Operation done successfully");
    }
 
-   public static void updateDataBase() {
+   private static void updateDataBase() {
       try {
-
-         // stmt = c.createStatement();
 
          String sql = "UPDATE COMPANY set SALARY = 25000.00 where ID=1;";
          stmt.executeUpdate(sql);
          c.commit();
 
-         ResultSet rs = stmt.executeQuery("SELECT * FROM COMPANY;");
-
-         while (rs.next()) {
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            int age = rs.getInt("age");
-            String address = rs.getString("address");
-            float salary = rs.getFloat("salary");
-
-            System.out.println("ID = " + id);
-            System.out.println("NAME = " + name);
-            System.out.println("AGE = " + age);
-            System.out.println("ADDRESS = " + address);
-            System.out.println("SALARY = " + salary);
-            System.out.println();
-         }
-         rs.close();
-         // stmt.close();
-         // c.close();
       } catch (Exception e) {
          errorDataBase(e);
       }
       System.out.println("Operation done successfully");
    }
 
-   public static void showDataBase() {
+   private static void showDataBase() {
       try {
          ResultSet rs = stmt.executeQuery("SELECT * FROM COMPANY;");
 
@@ -131,18 +90,16 @@ public class Administrator {
             System.out.println();
          }
          rs.close();
-         // stmt.close();
-         // c.close();
+
       } catch (Exception e) {
          errorDataBase(e);
       }
       System.out.println("Operation done successfully");
    }
 
-   public static void insertDataBase() {
+   private static void insertDataBase() {
       try {
 
-         // stmt = c.createStatement();
          String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
                + "VALUES (1, 'Paul', 32, 'California', 20000.00 );";
          stmt.executeUpdate(sql);
@@ -156,25 +113,20 @@ public class Administrator {
          sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " + "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
          stmt.executeUpdate(sql);
 
-         // stmt.close();
          c.commit();
-         // c.close();
       } catch (Exception e) {
          errorDataBase(e);
       }
       System.out.println("Records created successfully");
    }
 
-   public static void createDataBase() {
+   private static void createDataBase() {
 
       try {
-         // stmt = c.createStatement();
          String sql = "CREATE TABLE COMPANY " + "(ID INT PRIMARY KEY     NOT NULL,"
                + " NAME           TEXT    NOT NULL, " + " AGE            INT     NOT NULL, "
                + " ADDRESS        CHAR(50), " + " SALARY         REAL)";
          stmt.executeUpdate(sql);
-         // stmt.close();
-         // c.close();
 
       } catch (Exception e) {
          errorDataBase(e);
