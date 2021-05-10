@@ -8,7 +8,7 @@ public class Player {
 
     public static void main(String[] args) {
         
-        b = f.readFile("A Medium Board.txt", b);
+        b = f.readFile("A Simple Board.txt", b);
 
         defineBoard();
         
