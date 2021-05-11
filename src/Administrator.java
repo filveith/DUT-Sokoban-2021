@@ -3,6 +3,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,6 +72,8 @@ public class Administrator {
     //     createNewDatabase("SSSIT.db");  
     // }   
 =======
+=======
+>>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
 =======
 >>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
 // import java.sql.PreparedStatement;
@@ -212,6 +215,9 @@ public class Administrator {
       System.exit(0);
    }
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
+=======
 >>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
 =======
 >>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
