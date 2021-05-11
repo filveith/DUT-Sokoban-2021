@@ -9,40 +9,14 @@ public class Player {
     public static void main(String[] args) {
         
         b = f.readFile("A Simple Board.txt", b);
-
-        defineBoard();
         
+        b.drawBoard();
 
         while (true) {
-            b.movePlayer(userMovementInput());
+            b.movePlayer(Verification.userInput(0));
             b.checkIfTargetVisible();
             b.drawBoard();  
             if(b.checkIfWin()) break;
         }
-    }
-
-    //ON peut en faire une seule fonctione avec verification
-    private static String userMovementInput(){
-        System.out.println("Ou voulez vous jouer ? L R U D");
-        String commande = in.nextLine().trim();
-        commande = v.checkUserMovement(commande);
-        //System.out.println(commande);  //DEBUG check if the user input is correctly returned
-        return commande;
-    }
-
-    private static void defineBoard(){
-        
-        
-        /*b.addHorizontalWall(0,0,5) ;
-        b.addHorizontalWall(0,5,5) ; 
-        b.addVerticalWall(0,0,5) ;
-        b.addVerticalWall(5,0,5) ;
-        b.addBox(2,1) ;
-        b.addBox(2,3) ;
-        b.addTarget(3,1) ;
-        b.addTarget(3,2) ;
-        b.setPosition(3,4);
-        */
-        b.drawBoard();
     }
 }

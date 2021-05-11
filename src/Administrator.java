@@ -1,81 +1,7 @@
 import java.sql.DriverManager;
 import java.sql.Statement;
+
 import java.sql.Connection;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.DatabaseMetaData;
-
-public class Administrator {
-    public static void main(String[] args) {
-        String sqlite_driver = "org.sqlite.JDBC";
-        String path = "jdbc:sqlite:exemple.db";
-
-        try {
-            Class.forName(sqlite_driver);
-        } 
-        catch (ClassNotFoundException ex) {
-            System.err.println("* Driver " + sqlite_driver + " absent ");
-            System.exit(1);
-        }
-
-        try (Connection c = DriverManager.getConnection(path)) {
-            Statement s = c.createStatement();
-            s.execute("drop table if exists personnes ");
-            s.execute(" create table personnes " + "( prenom text , annee integer )");
-            s.executeUpdate(" insert into personnes " + " values (' alexandre ', 1994) ");
-            s.executeUpdate(" insert into personnes " + " values (' simon ', 1996) ");
-            System .out. println (" Toute la table :");
-            ResultSet r = s. executeQuery (" select * from personnes ");
-
-            while (r.next ()) {
-                System .out. format ("| % -20s | %4d |\n",
-                r. getString (" prenom "), r. getInt (" annee "));
-            }
-            PreparedStatement ps = c. prepareStatement (" select * from personnes where prenom = ?");
-
-            ps. setString (1, " simon ");
-            r = ps. executeQuery ();
-
-            while (r.next ()) {
-                System .out. format ("| % -20s | %4d |\n",
-                r. getString (1),
-                r. getInt (2));
-            }
-        }
-        catch ( SQLException e) {
-            System .err. println ("* Exception " + e. getMessage ());
-        }
-    }
-
-    // public static void createNewDatabase(String fileName) {  
-   
-    //     String url = "jdbc:sqlite:" + fileName;  
-   
-    //     try {  
-    //         Connection conn = DriverManager.getConnection(url);  
-    //         if (conn != null) {  
-    //             DatabaseMetaData meta = conn.getMetaData();  
-    //             System.out.println("The driver name is " + meta.getDriverName());  
-    //             System.out.println("A new database has been created.");  
-    //         }  
-   
-    //     } catch (SQLException e) {  
-    //         System.out.println(e.getMessage());  
-    //     }  
-    // }  
-  
-    // public static void main(String[] args) {  
-    //     createNewDatabase("SSSIT.db");  
-    // }   
-=======
-=======
->>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
-=======
->>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
 // import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 // import java.sql.SQLException;
@@ -86,24 +12,85 @@ public class Administrator {
 
    static Connection c = null;
    static Statement stmt = null;
-
+   static Verification v = new Verification();
+   static boolean loop = true;
+   
+   
+//   public static void main(String[] args) {
+//	   try {
+//		   initDataBaseConnection();
+//		      createDataBase();
+//		      insertDataBase();
+//		      showDataBase();
+//		      updateDataBase();
+//		      // showDataBase();
+//		      closeDataBase();
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//      
+//	}
+   
    public static void main(String[] args) {
-      initDataBaseConnection();
-      createDataBase();
-      insertDataBase();
-      showDataBase();
-      updateDataBase();
-      // showDataBase();
-      closeDataBase();
+	   openConnexion();
+	   while(loop) {
+		   
+		   try {   
+			   System.out.println();
+			   String command = v.userInput(1);
+			   String nomBoard = "test";
+			   
+			   switch (command) {
+					case "create":
+						createDataBaseConnection(nomBoard);
+						break;
+					case "list":
+						
+						break;
+					case "show":
+						showDataBase();
+						break;
+					case "add":
+						insertDataBase();
+						break;
+					case "remove":
+						deletDataBase(nomBoard);
+						break;
+					case "quit":
+						closeDataBase();
+						loop = false;
+						break;
+					default:
+						break;
+				}
+		        
+			} catch (Exception e) {
+				errorDataBase(e);
+			}
+	   }
+   }
+   
+   private static void openConnexion() {
+	   try {
+
+	         Class.forName("org.sqlite.JDBC");
+	         c = DriverManager.getConnection("jdbc:sqlite:test.db");
+	         c.setAutoCommit(false);
+	         System.out.println("La base de données est ouverte");
+	         stmt = c.createStatement();
+
+	      } catch (Exception e) {
+	         errorDataBase(e);
+	      }
    }
 
-   private static void initDataBaseConnection() {
+   private static void createDataBaseConnection(String newDataBaseName) {
       try {
 
          Class.forName("org.sqlite.JDBC");
-         c = DriverManager.getConnection("jdbc:sqlite:test.db");
+         c = DriverManager.getConnection("jdbc:sqlite:"+newDataBaseName+".db");
          c.setAutoCommit(false);
-         System.out.println("Opened database successfully");
+         System.out.println("Created new database successfully");
          stmt = c.createStatement();
 
       } catch (Exception e) {
@@ -120,7 +107,7 @@ public class Administrator {
       }
    }
 
-   private static void deletDataBase() {
+   private static void deletDataBase(String nomBoard) {
 
       try {
 
@@ -214,11 +201,4 @@ public class Administrator {
       System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);
    }
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
-=======
->>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
-=======
->>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
 }
