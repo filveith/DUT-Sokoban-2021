@@ -229,6 +229,7 @@ public class Board {
         return false;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public void drawExampleBoard() {
         System.out.println(
@@ -236,6 +237,9 @@ public class Board {
                         + "3 # . # . . # C . #\n" + "4 # . x . x # P . #\n" + "5 # # # # # # # # #\n");
     }
 }
+=======
+}
+>>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
 =======
 }
 >>>>>>> c0a3015b162a1a829a1861e4c6e063a71ab74dcb
