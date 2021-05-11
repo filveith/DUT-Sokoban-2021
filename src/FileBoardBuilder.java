@@ -57,17 +57,19 @@ public class FileBoardBuilder {
             }
             setHeight(h);
 
+            System.out.println(" h = "+getHeight()+"   w = "+getWidth());
+
             b = new Board(file, getWidth(), getHeight());
             b.emptyBoard();
 
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 for (int x = 0; x < getWidth(); x++) {
+                    System.out.println("x = "+x+"   data.charAt(x) = "+data.charAt(x));
                     char v = data.charAt(x);
                     switch (v) {
                         case '#':
                             b.setPoint(x, y, b.wallSign);
-                            ;
                             break;
                         case 'C':
                             b.addBox(x, y);
