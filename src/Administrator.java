@@ -15,55 +15,37 @@ public class Administrator {
    static Verification v = new Verification();
    static boolean loop = true;
    
-   
-//   public static void main(String[] args) {
-//	   try {
-//		   initDataBaseConnection();
-//		      createDataBase();
-//		      insertDataBase();
-//		      showDataBase();
-//		      updateDataBase();
-//		      // showDataBase();
-//		      closeDataBase();
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//      
-//	}
-   
    public static void main(String[] args) {
 	   openConnexion();
 	   while(loop) {
-		   
-		   try {   
+		   try {
 			   System.out.println();
 			   String command = v.userInput(1);
 			   String nomBoard = "test";
 			   
 			   switch (command) {
-					case "create":
-						createDataBaseConnection(nomBoard);
+					case "create":    //Create new empty pre-configured data base
+						createDataBase();
 						break;
-					case "list":
+					case "list":   //List all the boards in the database
 						
 						break;
-					case "show":
+					case "show":   //Print a board
 						showDataBase();
 						break;
-					case "add":
-						insertDataBase();
+					case "add": //Add a board from a text file
+						insertDataBase("simple", v.userInput(3), 5, 6);
 						break;
-					case "remove":
+					case "remove": //Removes a board or the entire DataBase
 						deletDataBase(nomBoard);
 						break;
-					case "quit":
+					case "quit":   //Quit the data base (stops the programm)
 						closeDataBase();
 						loop = false;
 						break;
 					default:
 						break;
 				}
-		        
 			} catch (Exception e) {
 				errorDataBase(e);
 			}
@@ -72,16 +54,15 @@ public class Administrator {
    
    private static void openConnexion() {
 	   try {
+         Class.forName("org.sqlite.JDBC");
+         c = DriverManager.getConnection("jdbc:sqlite:NewData.db");
+         c.setAutoCommit(false);
+         System.out.println("La base de données est ouverte");
+         stmt = c.createStatement();
 
-	         Class.forName("org.sqlite.JDBC");
-	         c = DriverManager.getConnection("jdbc:sqlite:test.db");
-	         c.setAutoCommit(false);
-	         System.out.println("La base de données est ouverte");
-	         stmt = c.createStatement();
-
-	      } catch (Exception e) {
-	         errorDataBase(e);
-	      }
+      } catch (Exception e) {
+         errorDataBase(e);
+      }
    }
 
    private static void createDataBaseConnection(String newDataBaseName) {
@@ -124,7 +105,7 @@ public class Administrator {
    private static void updateDataBase() {
       try {
 
-         String sql = "UPDATE COMPANY set SALARY = 25000.00 where ID=1;";
+         String sql = "UPDATE BOARDS set NAME = newName where name = oldname;";
          stmt.executeUpdate(sql);
          c.commit();
 
@@ -136,21 +117,25 @@ public class Administrator {
 
    private static void showDataBase() {
       try {
-         ResultSet rs = stmt.executeQuery("SELECT * FROM COMPANY;");
+         ResultSet rs = stmt.executeQuery("SELECT * FROM BOARDS;");
 
+         System.out.println("| board_id | name             | nb_rows | nb_cols |\n"
+                           +"|----------|------------------|---------|---------|");
          while (rs.next()) {
-            int id = rs.getInt("id");
+            String board_id= rs.getString("board_id");
             String name = rs.getString("name");
-            int age = rs.getInt("age");
-            String address = rs.getString("address");
-            float salary = rs.getFloat("salary");
+            int nb_rows = rs.getInt("nb_rows");
+            int nb_cols = rs.getInt("nb_cols");
 
-            System.out.println("ID = " + id);
-            System.out.println("NAME = " + name);
-            System.out.println("AGE = " + age);
-            System.out.println("ADDRESS = " + address);
-            System.out.println("SALARY = " + salary);
-            System.out.println();
+            //System.out.println("board_id = " + board_id);
+            //System.out.println("name = " + name);
+            //System.out.println("nb_rows = " + nb_rows);
+            //System.out.println("nb_cols = " + nb_cols);
+            //System.out.println();
+
+            
+            System.out.println("| \""+board_id+"\" | "+name+"           | "+nb_rows+" | "+nb_cols+" |");
+
          }
          rs.close();
 
@@ -160,14 +145,14 @@ public class Administrator {
       System.out.println("Operation done successfully");
    }
 
-   private static void insertDataBase() {
+   private static void insertDataBase(String board_id, String board_name, int nb_rows, int nb_cols) {
       try {
 
-         String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
-               + "VALUES (1, 'Paul', 32, 'California', 20000.00 );";
+         String sql = "INSERT INTO BOARDS(board_id,NAME,nb_rows,nb_cols) "
+                     + "VALUES (\'"+board_id+"\', \'"+board_name+"\', "+nb_rows+", "+nb_cols+");";
          stmt.executeUpdate(sql);
 
-         sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " + "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
+         /*sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " + "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
          stmt.executeUpdate(sql);
 
          sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " + "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
@@ -175,7 +160,7 @@ public class Administrator {
 
          sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " + "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
          stmt.executeUpdate(sql);
-
+         */
          c.commit();
       } catch (Exception e) {
          errorDataBase(e);
@@ -186,11 +171,16 @@ public class Administrator {
    private static void createDataBase() {
 
       try {
-         String sql = "CREATE TABLE COMPANY " + "(ID INT PRIMARY KEY     NOT NULL,"
-               + " NAME           TEXT    NOT NULL, " + " AGE            INT     NOT NULL, "
-               + " ADDRESS        CHAR(50), " + " SALARY         REAL)";
+         String sql = "CREATE TABLE BOARDS " + "(board_id TEXT NOT NULL,"
+               + " NAME TEXT PRIMARY KEY NOT NULL, " + " nb_rows INT NOT NULL, "
+               + " nb_cols INT NOT NULL)";
          stmt.executeUpdate(sql);
 
+         /*sql = "CREATE TABLE ROWS " + "(board_id TEXT NOT NULL,"
+               + " row_num INT NOT NULL, "
+               + " description INT NOT NULL)";
+         stmt.executeUpdate(sql);
+         */
       } catch (Exception e) {
          errorDataBase(e);
       }

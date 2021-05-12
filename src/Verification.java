@@ -1,10 +1,10 @@
 import java.util.Scanner;
-
 public class Verification {
     
 	static private Scanner in = new Scanner(System.in);
 	
 	public static String userInput(int selection) {
+		int maxBoardNameLenght = 12;
 		String userInput = "";
 		if (selection == 0) {
 			System.out.println("Ou voulez vous jouer ? L R U D");
@@ -20,8 +20,21 @@ public class Verification {
 					+ "- Quit (Quit)");
 			userInput = in.nextLine().trim();
 			userInput = checkUserCommandDataBase(userInput);
+		} else if (selection == 2){
+			while(true){
+				System.out.println("Quel est le nom de la nouvelle base de données ?");
+				userInput = in.nextLine().trim();
+				if(userInput != "" && userInput != null) return userInput;
+				System.out.println("Nom de base non-possible.");
+			}
+		} else if (selection == 3){
+			while(true){
+				System.out.println("Quel est le nom du plateau à ajouter ? (Longueur max 12 char)");
+				userInput = in.nextLine().trim();
+				if(userInput != "" && userInput != null && userInput.length() < maxBoardNameLenght) return userInput;
+				System.out.println("Nom du plateau non-possible.");
+			}
 		}
-    	
     	return userInput;
 	}
 	
