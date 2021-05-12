@@ -6,10 +6,10 @@ public class Player {
 
     public static void main(String[] args) {
         
-        b = f.readFile("A Simple Board.txt", b);
-        
+        b = f.readFile(" Board.txt", b);
+        //f.checkIfFileExist("A ");
         b.drawBoard();
-
+    
         while (true) {
             b.movePlayer(Verification.userInput(0));
             b.checkIfTargetVisible();

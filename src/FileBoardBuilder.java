@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import javax.xml.transform.stream.StreamSource;
+
 public class FileBoardBuilder {
 
     private int height = 0;
@@ -43,56 +45,32 @@ public class FileBoardBuilder {
     }
     // #endregion
 
+
+    public boolean checkIfFileExist(String fileName) {
+        try {
+            File myObj = new File("sokoban/board/" + fileName);
+            Scanner myReader = new Scanner(myObj);
+            System.out.println("The file exist");
+            return true;
+        } catch (Exception e) {
+            System.out.println("The file doesn't exist");
+            return false;
+        }
+    }
+
     Board readFile(String file, Board b) {
-        int h = 0;
-        int y = 0;
+        BoardBuilder bb = new BoardBuilder();
         try {
             File myObj = new File("sokoban/board/" + file);
             Scanner myReader = new Scanner(myObj);
-            Scanner size = new Scanner(myObj);
+            b = bb.boardBuilder(myObj, b, file);
+            System.out.println("The file exist");
 
-            while (size.hasNextLine()) {
-                setWidth((size.nextLine()).length());
-                h++;
-            }
-            setHeight(h);
-
-            System.out.println(" h = "+getHeight()+"   w = "+getWidth());
-
-            b = new Board(file, getWidth(), getHeight());
-            b.emptyBoard();
-
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                for (int x = 0; x < getWidth(); x++) {
-                    System.out.println("x = "+x+"   data.charAt(x) = "+data.charAt(x));
-                    char v = data.charAt(x);
-                    switch (v) {
-                        case '#':
-                            b.setPoint(x, y, b.wallSign);
-                            break;
-                        case 'C':
-                            b.addBox(x, y);
-                            break;
-                        case '.':
-                            break;
-                        case 'P':
-                            b.addPlayer(x, y);
-                            break;
-                        case 'x':
-                            b.addTarget(x, y);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                y++;
-            }
-            myReader.close();
-            size.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred in FileBoardBuilder");
-            e.printStackTrace();
+            System.out.println("-error in FileBoardBuilder : "+e);
+            System.out.println("-The file doesn't exist, taking an existing board \n");
+            b = bb.hardCodedBoard(b);
+            return b;
         }
         return b;
     }

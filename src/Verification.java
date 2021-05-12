@@ -29,7 +29,14 @@ public class Verification {
 			}
 		} else if (selection == 3){
 			while(true){
-				System.out.println("Quel est le nom du plateau à ajouter ? (Longueur max 12 char)");
+				System.out.println("Quel est le nom du fichier texte à ajouter ?");
+				userInput = in.nextLine().trim();
+				if(userInput != "" && userInput != null && userInput.length() < maxBoardNameLenght) return userInput;
+				System.out.println("Fichier inexistant, verifier que le fichier est bien dans le dossier board");
+			}
+		} else if (selection == 4){
+			while(true){
+				System.out.println("ID du plateau à ajouter ? (Longueur max 8)");
 				userInput = in.nextLine().trim();
 				if(userInput != "" && userInput != null && userInput.length() < maxBoardNameLenght) return userInput;
 				System.out.println("Nom du plateau non-possible.");

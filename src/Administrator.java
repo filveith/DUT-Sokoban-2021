@@ -1,12 +1,11 @@
 import java.sql.DriverManager;
 import java.sql.Statement;
-
 import java.sql.Connection;
-// import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 // import java.sql.SQLException;
 // import java.sql.DatabaseMetaData;
-//import java.sql.*;
+// import java.sql.*;
+// import java.sql.PreparedStatement;
 
 public class Administrator {
 
@@ -16,6 +15,7 @@ public class Administrator {
    static boolean loop = true;
    
    public static void main(String[] args) {
+      System.out.println("ADMINISTRATION INTERFACE - USE WITH CAUTION");
 	   openConnexion();
 	   while(loop) {
 		   try {
@@ -24,7 +24,7 @@ public class Administrator {
 			   String nomBoard = "test";
 			   
 			   switch (command) {
-					case "create":    //Create new empty pre-configured data base
+					case "create":    //Create a new empty pre-configured data base
 						createDataBase();
 						break;
 					case "list":   //List all the boards in the database
@@ -126,13 +126,6 @@ public class Administrator {
             String name = rs.getString("name");
             int nb_rows = rs.getInt("nb_rows");
             int nb_cols = rs.getInt("nb_cols");
-
-            //System.out.println("board_id = " + board_id);
-            //System.out.println("name = " + name);
-            //System.out.println("nb_rows = " + nb_rows);
-            //System.out.println("nb_cols = " + nb_cols);
-            //System.out.println();
-
             
             System.out.println("| \""+board_id+"\" | "+name+"           | "+nb_rows+" | "+nb_cols+" |");
 
@@ -150,17 +143,8 @@ public class Administrator {
 
          String sql = "INSERT INTO BOARDS(board_id,NAME,nb_rows,nb_cols) "
                      + "VALUES (\'"+board_id+"\', \'"+board_name+"\', "+nb_rows+", "+nb_cols+");";
-         stmt.executeUpdate(sql);
-
-         /*sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " + "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
-         stmt.executeUpdate(sql);
-
-         sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " + "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
-         stmt.executeUpdate(sql);
-
-         sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " + "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
-         stmt.executeUpdate(sql);
-         */
+         
+                     stmt.executeUpdate(sql);
          c.commit();
       } catch (Exception e) {
          errorDataBase(e);
@@ -171,9 +155,13 @@ public class Administrator {
    private static void createDataBase() {
 
       try {
-         String sql = "CREATE TABLE BOARDS " + "(board_id TEXT NOT NULL,"
-               + " NAME TEXT PRIMARY KEY NOT NULL, " + " nb_rows INT NOT NULL, "
+         String sql = "CREATE TABLE BOARDS " + "(board_id TEXT PRIMARY KEY NOT NULL,"
+               + " NAME TEXT NOT NULL, " + " nb_rows INT NOT NULL, "
                + " nb_cols INT NOT NULL)";
+         stmt.executeUpdate(sql);
+
+         sql = "CREATE TABLE ROWS " + "(board_id TEXT PRIMARY KEY NOT NULL,"
+               + " row_num INT NOT NULL, " + " description String NOT NULL)";
          stmt.executeUpdate(sql);
 
          /*sql = "CREATE TABLE ROWS " + "(board_id TEXT NOT NULL,"
