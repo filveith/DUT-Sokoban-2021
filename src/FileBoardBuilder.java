@@ -50,10 +50,10 @@ public class FileBoardBuilder {
         try {
             File myObj = new File("sokoban/board/" + fileName);
             Scanner myReader = new Scanner(myObj);
-            System.out.println("The file exist");
+            System.out.println("The file \""+ fileName +"\" exist");
             return true;
         } catch (Exception e) {
-            System.out.println("The file doesn't exist");
+            System.out.println("The file \""+ fileName +"\" doesn't exist");
             return false;
         }
     }
@@ -65,7 +65,7 @@ public class FileBoardBuilder {
             Scanner myReader = new Scanner(myObj);
             b = bb.boardBuilder(myObj, b, file);
             System.out.println("The file exist");
-
+            myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("-error in FileBoardBuilder : "+e);
             System.out.println("-The file doesn't exist, taking an existing board \n");
@@ -73,5 +73,25 @@ public class FileBoardBuilder {
             return b;
         }
         return b;
+    }
+
+    public Scanner boardInfos(String boardName){
+        Scanner myReader = null;
+        try {
+            File myObj = new File("sokoban/board/" + boardName);
+            myReader = new Scanner(myObj);
+            Scanner size = new Scanner(myObj);
+
+            width = size.nextLine().length();
+            while (size.hasNextLine()) {
+                size.nextLine();
+                height++;
+            }
+            size.close();
+            System.out.println("width = "+width+"    height = "+ height);
+        } catch (Exception e) {
+            System.out.println("The file doesn't exist");
+        }
+        return myReader;
     }
 }

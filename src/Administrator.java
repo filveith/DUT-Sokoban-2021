@@ -1,5 +1,8 @@
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.Scanner;
+
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 // import java.sql.SQLException;
@@ -28,13 +31,13 @@ public class Administrator {
 						createDataBase();
 						break;
 					case "list":   //List all the boards in the database
-						
+               listBoards();
 						break;
-					case "show":   //Print a board
-						showDataBase();
-						break;
+               case "show":
+                  showBoard(v.userInput(5));
+                  break;
 					case "add": //Add a board from a text file
-						insertDataBase("simple", v.userInput(3), 5, 6);
+						insertBoards(v.userInput(4), v.userInput(3));   //ask for board id + name of the text file
 						break;
 					case "remove": //Removes a board or the entire DataBase
 						deletDataBase(nomBoard);
@@ -115,7 +118,7 @@ public class Administrator {
       System.out.println("Operation done successfully");
    }
 
-   private static void showDataBase() {
+   private static void listBoards() {
       try {
          ResultSet rs = stmt.executeQuery("SELECT * FROM BOARDS;");
 
@@ -138,45 +141,110 @@ public class Administrator {
       System.out.println("Operation done successfully");
    }
 
-   private static void insertDataBase(String board_id, String board_name, int nb_rows, int nb_cols) {
+   private static void showBoard(String boardID) {
       try {
+         ResultSet rs = stmt.executeQuery("SELECT * FROM ROWS WHERE board_id='"+boardID+"';");
 
-         String sql = "INSERT INTO BOARDS(board_id,NAME,nb_rows,nb_cols) "
-                     + "VALUES (\'"+board_id+"\', \'"+board_name+"\', "+nb_rows+", "+nb_cols+");";
-         
-                     stmt.executeUpdate(sql);
-         c.commit();
+         System.out.println("| board_id | row_num          | description  |\n"
+                           +"|----------|------------------|--------------|");
+
+         while (rs.next()) {
+            String board_id= rs.getString("board_id");
+            int nb_rows = rs.getInt("row_num");
+            String nb_cols = rs.getString("description");
+            
+            System.out.println("| \""+board_id+"\" | "+nb_rows+" | "+nb_cols+" |");
+
+         }
+         rs.close();
+
+      } catch (Exception e) {
+         System.out.println("error showBoard()");
+         errorDataBase(e);
+      }
+      
+   }
+
+   private static void insertBoards(String board_id, String board_name) {
+      try {
+         FileBoardBuilder f = new FileBoardBuilder();
+         String textFileName = board_name+".txt";
+         int nb_rows = 0;
+         int nb_cols = 0;
+         if(f.checkIfFileExist(textFileName)){
+            Scanner newBoard = f.boardInfos(textFileName);
+            nb_rows = f.getHeight();
+            nb_cols = f.getWidth();
+            int row_num = 0;
+            while(newBoard.hasNextLine()){
+               insertRows(board_id, row_num, ("\""+newBoard.nextLine()+"\""));
+               row_num++;
+            }
+            String sql = "INSERT INTO BOARDS(board_id,NAME,nb_rows,nb_cols) "
+                        + "VALUES (\'"+board_id+"\', \'"+board_name+"\', "+nb_rows+", "+nb_cols+");";
+            
+            stmt.executeUpdate(sql);
+            c.commit();
+
+            System.out.println("Records created successfully");
+
+         }
       } catch (Exception e) {
          errorDataBase(e);
       }
-      System.out.println("Records created successfully");
+      
+   }
+
+   private static void insertRows(String board_id, int row_num, String description) {
+      try {
+
+         String sql = "INSERT INTO ROWS(board_id,row_num,description) "
+                     + "VALUES (\'"+board_id+"\', \'"+row_num+"\', "+description+")";
+         
+                     stmt.executeUpdate(sql);
+         c.commit();
+         System.out.println("Records created successfully");
+      } catch (Exception e) {
+         errorDataBase(e);
+      }
+      
    }
 
    private static void createDataBase() {
 
       try {
-         String sql = "CREATE TABLE BOARDS " + "(board_id TEXT PRIMARY KEY NOT NULL,"
+         String sql = "CREATE TABLE BOARDS " + "(board_id NOT NULL,"
                + " NAME TEXT NOT NULL, " + " nb_rows INT NOT NULL, "
                + " nb_cols INT NOT NULL)";
          stmt.executeUpdate(sql);
 
-         sql = "CREATE TABLE ROWS " + "(board_id TEXT PRIMARY KEY NOT NULL,"
+         sql = "CREATE TABLE ROWS " + "(board_id NOT NULL,"
                + " row_num INT NOT NULL, " + " description String NOT NULL)";
          stmt.executeUpdate(sql);
 
-         /*sql = "CREATE TABLE ROWS " + "(board_id TEXT NOT NULL,"
-               + " row_num INT NOT NULL, "
-               + " description INT NOT NULL)";
-         stmt.executeUpdate(sql);
-         */
+         System.out.println("Table created successfully");
       } catch (Exception e) {
          errorDataBase(e);
       }
-      System.out.println("Table created successfully");
+      
+   }
+   public static boolean checkIfIDExist(String id){
+      try {
+         String sql = ("SELECT * FROM ROWS WHERE board_id='"+id+"';");
+         System.out.println(sql);
+         ResultSet rs = stmt.executeQuery(sql);
+         if(rs.getString("board_id").equals(id)){
+            System.out.println("Le id_plateau existe déjà");
+            return true;
+         } else {
+            return false;
+         }
+      } catch (Exception e) {
+         return false;
+      }
    }
 
    private static void errorDataBase(Exception e) {
       System.err.println(e.getClass().getName() + ": " + e.getMessage());
-      System.exit(0);
    }
 }
