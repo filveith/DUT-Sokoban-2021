@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import javax.xml.transform.stream.StreamSource;
-
 public class FileBoardBuilder {
 
     private int height = 0;
@@ -63,14 +60,14 @@ public class FileBoardBuilder {
         try {
             File myObj = new File("sokoban/board/" + file);
             Scanner myReader = new Scanner(myObj);
-            b = bb.boardBuilder(myObj, b, file);
-            System.out.println("The file exist");
+            b = bb.build(myObj, b, file);
+            //System.out.println("The file exist");
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("-error in FileBoardBuilder : "+e);
-            System.out.println("-The file doesn't exist, taking an existing board \n");
-            b = bb.hardCodedBoard(b);
-            return b;
+            System.out.println("The file doesn't exist");
+            //System.out.println("-The file doesn't exist, taking an existing board \n");
+            //b = bb.hardCodedBoard(b);
+            //return b;
         }
         return b;
     }

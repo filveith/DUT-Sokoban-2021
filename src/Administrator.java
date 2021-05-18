@@ -1,30 +1,26 @@
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Scanner;
-
-
 import java.sql.Connection;
 import java.sql.ResultSet;
-// import java.sql.SQLException;
-// import java.sql.DatabaseMetaData;
-// import java.sql.*;
-// import java.sql.PreparedStatement;
 
 public class Administrator {
 
+   static private Scanner in = new Scanner(System.in);
    static Connection c = null;
    static Statement stmt = null;
    static Verification v = new Verification();
    static boolean loop = true;
    
+   
    public static void main(String[] args) {
       System.out.println("ADMINISTRATION INTERFACE - USE WITH CAUTION");
 	   openConnexion();
-	   while(loop) {
+	   
+      while(loop) {
 		   try {
 			   System.out.println();
 			   String command = v.userInput(1);
-			   String nomBoard = "test";
 			   
 			   switch (command) {
 					case "create":    //Create a new empty pre-configured data base
@@ -40,7 +36,7 @@ public class Administrator {
 						insertBoards(v.userInput(4), v.userInput(3));   //ask for board id + name of the text file
 						break;
 					case "remove": //Removes a board or the entire DataBase
-						deletDataBase(nomBoard);
+						deletDataBase(v.userInput(6));
 						break;
 					case "quit":   //Quit the data base (stops the programm)
 						closeDataBase();
@@ -55,6 +51,37 @@ public class Administrator {
 	   }
    }
    
+   public static Board playerAdministrator(Board b) {
+      openConnexion();
+      while(loop){
+         try {
+            System.out.println();
+            String command = v.userInput(7);
+            
+            switch (command) {
+               case "list":   //List all the boards in the database
+               listBoards();
+                  break;
+               case "show":
+                  showBoard(v.userInput(5));
+                  break;
+               case "play":
+                  //TODO: Player chooses a board (with board_id) and create the borad ect...
+                  break;
+               case "quit":   //Quit the data base (stops the programm)
+                  closeDataBase();
+                  loop = false;
+                  break;
+               default:
+                  break;
+            }
+         } catch (Exception e) {
+            errorDataBase(e);
+         }
+      }
+      return b;
+   }
+
    private static void openConnexion() {
 	   try {
          Class.forName("org.sqlite.JDBC");
@@ -91,18 +118,27 @@ public class Administrator {
       }
    }
 
-   private static void deletDataBase(String nomBoard) {
+   private static void deletDataBase(String boardID) {
+      System.out.println("Are you sure you want to delete '"+boardID+"'   (Yes/No)");
+      String userInput = (in.nextLine().trim()).toLowerCase();
+      if(userInput.equals("yes") || userInput.equals("y")){
+         try {
 
-      try {
+            String sql = "DELETE FROM ROWS WHERE board_id='"+boardID+"';";
+            stmt.executeUpdate(sql);
 
-         String sql = "DELETE from COMPANY where ID=2;";
-         stmt.executeUpdate(sql);
-         c.commit();
+            sql = "DELETE FROM BOARDS WHERE board_id='"+boardID+"';";
+            stmt.executeUpdate(sql);
 
-      } catch (Exception e) {
-         errorDataBase(e);
+            c.commit();
+            System.out.println("Operation done successfully");
+
+         } catch (Exception e) {
+            errorDataBase(e);
+         }
+      } else {
+         System.out.println("Okay leaving deletion mode");
       }
-      System.out.println("Operation done successfully");
    }
 
    private static void updateDataBase() {
@@ -234,7 +270,7 @@ public class Administrator {
          System.out.println(sql);
          ResultSet rs = stmt.executeQuery(sql);
          if(rs.getString("board_id").equals(id)){
-            System.out.println("Le id_plateau existe déjà");
+            //System.out.println("Le id_plateau existe déjà");
             return true;
          } else {
             return false;

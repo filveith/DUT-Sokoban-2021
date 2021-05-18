@@ -56,10 +56,19 @@ public class Board {
     public int getWidth() {
         return width;
     }
+
+    public void setBoardName(String boardName){
+        this.boardName = boardName;
+    }
+
+    public String getBoardName(){
+        return boardName;
+    }
     // #endregion
     // #region board drawing
 
     public void drawBoard() {
+        checkIfTargetVisible();
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 System.out.print(image[x][y].getNature());
@@ -230,8 +239,13 @@ public class Board {
     }
 
     public void drawExampleBoard() {
-        System.out.println(
-                "  0 1 2 3 4 5 6 7 8\n" + "0 . . # # # # . . .\n" + "1 # # # . . # # # #\n" + "2 # . . . . . C . #\n"
-                        + "3 # . # . . # C . #\n" + "4 # . x . x # P . #\n" + "5 # # # # # # # # #\n");
+        System.out.println("  0 1 2 3 4 5 6 7 8\n"
+                         + "0 . . # # # # . . .\n"
+                         + "1 # # # . . # # # #\n" 
+                         + "2 # . . . . . C . #\n"
+                         + "3 # . # . . # C . #\n"
+                         + "4 # . x . x # P . #\n"
+                         + "5 # # # # # # # # #\n");
     }
+
 }

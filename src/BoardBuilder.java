@@ -9,7 +9,7 @@ public class BoardBuilder {
     static FileBoardBuilder f = new FileBoardBuilder();
     
 
-    public static Board boardBuilder(File myFile, Board b, String boardName) {
+    public static Board build(File myFile, Board b, String boardName) {
         int y = 0;
         int h = 0;
         try {
@@ -29,8 +29,8 @@ public class BoardBuilder {
 
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                for (int x = 0; x < f.getWidth(); x++) {
-                    //System.out.println("x = "+x+"   data.charAt(x) = "+data.charAt(x)); //DEBUG
+                for (int x = 0; x < getWidth(); x++) {
+                    //System.out.println("Data = "+data+"  x = "+x+"   data.charAt(x) = "+data.charAt(x)); //DEBUG
                     char v = data.charAt(x);
                     switch (v) {
                         case '#':
