@@ -162,7 +162,7 @@ public class Administrator {
       try {
          ResultSet rs = stmt.executeQuery("SELECT * FROM BOARDS;");
 
-         //System.out.format(); //POUR FORMAT LE TEXTE
+         //System.out.format("'%15s' %n", "test"); //POUR FORMAT LE TEXTE
 
          System.out.println("| board_id | name             | nb_rows | nb_cols |\n"
                + "|----------|------------------|---------|---------|");
@@ -172,15 +172,21 @@ public class Administrator {
             int nb_rows = rs.getInt("nb_rows");
             int nb_cols = rs.getInt("nb_cols");
 
-            System.out.println("| \"" + board_id + "\" | " + name + "           | " + nb_rows + " | " + nb_cols + " |");
+            System.out.printf("%-11s", "| \""+board_id+"\"");
+            System.out.printf("%-19s", "| "+name);
+            System.out.printf("%-10s", "| "+nb_rows);
+            System.out.printf("%-10s", "| "+nb_cols+" ");
+            System.out.printf("|\n");
 
+            //System.out.printf("| \"" + board_id + "\" | " + name + "           | " + nb_rows + " | " + nb_cols + " |");
          }
          rs.close();
+         System.out.println("\nOperation done successfully");
 
       } catch (Exception e) {
          errorDataBase(e);
       }
-      System.out.println("Operation done successfully");
+      
    }
 
    
@@ -193,15 +199,18 @@ public class Administrator {
       try {
          ResultSet rs = stmt.executeQuery("SELECT * FROM ROWS WHERE board_id='" + boardID + "';");
 
-         System.out.println(
-               "| board_id | row_num          | description  |\n" + "|----------|------------------|--------------|");
+         System.out.println("| board_id | row_num          | description  |\n" 
+                          + "|----------|------------------|--------------|");
 
          while (rs.next()) {
             String board_id = rs.getString("board_id");
             int nb_rows = rs.getInt("row_num");
             String description = rs.getString("description");
 
-            System.out.println("| \"" + board_id + "\" | " + nb_rows + " | " + description + " |");
+            System.out.printf("%-11s", "| \""+board_id+"\"");
+            System.out.printf("%-19s", "| "+nb_rows);
+            System.out.printf("%-15s", "| "+description+" ");
+            System.out.printf("|\n");
          }
          rs.close();
 
@@ -265,7 +274,6 @@ public class Administrator {
       } catch (Exception e) {
          errorDataBase(e);
       }
-
    }
 
    /**
@@ -286,10 +294,8 @@ public class Administrator {
       } catch (Exception e) {
          errorDataBase(e);
       }
-
    }
 
-   
    /** 
     * Load a board from the database to be played 
     * 
@@ -348,7 +354,6 @@ public class Administrator {
    public static boolean checkIfIDExist(String id) {
       try {
          String sql = ("SELECT * FROM ROWS WHERE board_id='" + id + "';");
-         System.out.println(sql);
          ResultSet rs = stmt.executeQuery(sql);
          if (rs.getString("board_id").equals(id)) {
             // System.out.println("Le id_plateau existe déjà");

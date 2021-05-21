@@ -48,7 +48,6 @@ public class Player {
         System.out.println("Redémarrage de la partie...");
         b = f.readFile(b.getBoardName(), b);
     }
-
     
     /**
      * Menu for the player to choose a board to play on 
