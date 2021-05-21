@@ -100,7 +100,7 @@ public class FileBoardBuilder {
     public boolean checkIfFileExist(String fileName) {
         try {
             File myObj = new File("sokoban/board/" + fileName);
-            Scanner myReader = new Scanner(myObj);
+            Scanner myReader = new Scanner(myObj);  //this is needed else it won't throw the execption
             System.out.println("Le fichier \""+ fileName +"\" existe");
             return true;
         } catch (Exception e) {

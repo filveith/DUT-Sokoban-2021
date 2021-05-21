@@ -10,7 +10,7 @@ public class Administrator {
    static private Scanner in = new Scanner(System.in);
    static Connection c = null;
    static Statement stmt = null;
-   static Verification v = new Verification();
+   static final Verification v = new Verification();
    static boolean loop = true;
 
    
@@ -104,26 +104,6 @@ public class Administrator {
          c = DriverManager.getConnection("jdbc:sqlite:BoardDB.db");
          c.setAutoCommit(false);
          System.out.println("La base de données est ouverte");
-         stmt = c.createStatement();
-
-      } catch (Exception e) {
-         errorDataBase(e);
-      }
-   }
-
-   
-   /**
-    *  
-    * 
-    * @param newDataBaseName
-    */
-   private static void createDataBaseConnection(String newDataBaseName) {
-      try {
-
-         Class.forName("org.sqlite.JDBC");
-         c = DriverManager.getConnection("jdbc:sqlite:" + newDataBaseName + ".db");
-         c.setAutoCommit(false);
-         System.out.println("Created new database successfully");
          stmt = c.createStatement();
 
       } catch (Exception e) {
@@ -329,11 +309,8 @@ public class Administrator {
          try {
             ResultSet rs = stmt.executeQuery("SELECT * FROM ROWS WHERE board_id='" + boardID + "' AND row_num=" + boucle + ";");
             while (rs.next()) {
-               String board_id = rs.getString("board_id");
-               int nb_rows = rs.getInt("row_num");
                String description = rs.getString("description");
-
-               //System.out.println("Board id = \"" + board_id + "\" | row num =  " + nb_rows + " | " + description + " |");
+               
                System.out.println(description);
                board += description+"\n";
                

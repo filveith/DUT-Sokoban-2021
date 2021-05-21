@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.io.File;
 public class BoardBuilder {
     
     static private int height = 0;
