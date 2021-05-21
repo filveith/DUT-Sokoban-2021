@@ -1,15 +1,14 @@
 import java.util.Scanner;
+
 public class BoardBuilder {
-    
+
     static private int height = 0;
     static private int width = 0;
     static private int nbTarget = 0;
     static private Case[][] targetList;
     static FileBoardBuilder f = new FileBoardBuilder();
-    
 
-    
-    /** 
+    /**
      * Method to build a board from a file or a database
      * 
      * @return Board
@@ -21,23 +20,23 @@ public class BoardBuilder {
             Scanner size = myScanner;
             Scanner myReader = myScanner2;
 
-            while(size.hasNextLine()){
+            while (size.hasNextLine()) {
                 setWidth((size.nextLine()).length());
                 h++;
             }
 
             setHeight(h);
 
-            //System.out.println(" h = "+getHeight()+"   w = "+getWidth()); //DEBUG
+            // System.out.println(" h = "+getHeight()+" w = "+getWidth()); //DEBUG
 
             b = new Board(boardName, getWidth(), getHeight());
             b.emptyBoard();
-            
 
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 for (int x = 0; x < b.getWidth(); x++) {
-                    //System.out.println("Data = "+data+"  x = "+x+"   data.charAt(x) = "+data.charAt(x)); //DEBUG
+                    // System.out.println("Data = "+data+" x = "+x+" data.charAt(x) =
+                    // "+data.charAt(x)); //DEBUG
                     char v = data.charAt(x);
                     switch (v) {
                         case '#':
@@ -63,19 +62,18 @@ public class BoardBuilder {
             myReader.close();
             size.close();
         } catch (Exception e) {
-            System.out.println("An error occurred in the class BoardBuilder, build() : "+e);
+            System.out.println("An error occurred in the class BoardBuilder, build() : " + e);
         }
         return b;
     }
 
-    
     /**
-     * A hard-coded board in case there is no board to play 
+     * A hard-coded board in case there is no board to play
      * 
      * @param b
      * @return Board
      */
-    public static Board hardCodedBoard(Board b){
+    public static Board hardCodedBoard(Board b) {
         b = new Board("HardCodedBoard", 10, 5);
         b.emptyBoard();
         b.addHorizontalWall(0, 0, 9);
@@ -91,19 +89,18 @@ public class BoardBuilder {
         return b;
     }
 
-    //#region setter/getter
+    // #region setter/getter
 
     /**
      * Getter of the boards height
-     *  
+     * 
      * @return int
      */
     static public int getHeight() {
         return height;
     }
 
-    
-    /** 
+    /**
      * Setter of the boards height
      * 
      * @param heightIn
@@ -112,9 +109,8 @@ public class BoardBuilder {
         height = heightIn;
     }
 
-    
     /**
-     * Getter of the boards width 
+     * Getter of the boards width
      * 
      * @return int
      */
@@ -122,8 +118,7 @@ public class BoardBuilder {
         return width;
     }
 
-    
-    /** 
+    /**
      * Setter of the boards width
      * 
      * @param widthIn
@@ -132,9 +127,8 @@ public class BoardBuilder {
         width = widthIn;
     }
 
-    
     /**
-     * Getter of the numbers of traget in the board 
+     * Getter of the numbers of traget in the board
      * 
      * @return int
      */
@@ -142,18 +136,17 @@ public class BoardBuilder {
         return nbTarget;
     }
 
-    
-    /** 
-     * Setter of the numbers of traget in the board 
+    /**
+     * Setter of the numbers of traget in the board
      * 
      * @param nbTargetIn
      */
     static public void setNbTarget(int nbTargetIn) {
         nbTarget = nbTargetIn;
     }
-    
+
     /**
-     * Getter of the positons of a target on the board  
+     * Getter of the positons of a target on the board
      * 
      * @return Case[][]
      */
@@ -162,12 +155,12 @@ public class BoardBuilder {
     }
 
     /**
-     * Setter of the positons of a target on the board 
+     * Setter of the positons of a target on the board
      * 
      * @param targetListIn
      */
     static public void setTargetList(Case[][] targetListIn) {
         targetList = targetListIn;
     }
-    //#endregion
+    // #endregion
 }

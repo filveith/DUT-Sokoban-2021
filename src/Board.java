@@ -40,11 +40,11 @@ public class Board {
         return targetList;
     }
 
-    
+    // #region Getter/Setter
+
     /** 
      * @param height
      */
-    // #region Getter/Setter
     public void setHeight(int height) {
         this.height = height;
     }
@@ -115,7 +115,9 @@ public class Board {
     }
 
     
-    /** 
+    /**
+     * Add a horizontal wall 
+     * 
      * @param x
      * @param y
      * @param length
@@ -128,7 +130,9 @@ public class Board {
     }
 
     
-    /** 
+    /**
+     * Add a wall 
+     * 
      * @param x
      * @param y
      */
@@ -138,6 +142,8 @@ public class Board {
 
     
     /** 
+     * Add a vertical wall
+     * 
      * @param x
      * @param y
      * @param length
@@ -151,6 +157,8 @@ public class Board {
 
     
     /** 
+     * Add a box to the board
+     * 
      * @param x
      * @param y
      */
@@ -161,6 +169,8 @@ public class Board {
 
     
     /** 
+     * Add a target to the board
+     * 
      * @param x
      * @param y
      */
@@ -170,7 +180,9 @@ public class Board {
     }
 
     
-    /** 
+    /**
+     * Add a player to the board 
+     * 
      * @param x
      * @param y
      */
@@ -181,6 +193,8 @@ public class Board {
 
     
     /** 
+     * Set the position of a point
+     * 
      * @param x
      * @param y
      * @param nature
@@ -193,12 +207,13 @@ public class Board {
         }
 
     }
-    
-    /** 
-     * @param movementInput
-     */
     // #endregion
 
+    /**
+     * Move the player on the board 
+     * 
+     * @param movementInput
+     */
     public void movePlayer(String movementInput) {
         for (char movement : movementInput.toCharArray()) {
             int x = p.getX();
@@ -229,9 +244,10 @@ public class Board {
             }
         }
     }
-
     
     /** 
+     * Check if the movement from the player is possible
+     * 
      * @param xFinal
      * @param yFinal
      * @param movement
@@ -273,6 +289,9 @@ public class Board {
         return true;
     }
 
+    /**
+     * Check is the targets are visible or not, used for when the player walks over a target to show it after the player has mooved
+     */
     public void checkIfTargetVisible() {
         for (int y = 0; y <= height; y++) {
             for (int x = 0; x < width; x++) {
@@ -291,7 +310,9 @@ public class Board {
     }
 
     
-    /** 
+    /**
+     * Check if all the boxs are on a target 
+     * 
      * @return boolean
      */
     public boolean checkIfWin() {
@@ -315,15 +336,4 @@ public class Board {
         }
         return false;
     }
-
-    public void drawExampleBoard() {
-        System.out.println("  0 1 2 3 4 5 6 7 8\n"
-                         + "0 . . # # # # . . .\n"
-                         + "1 # # # . . # # # #\n" 
-                         + "2 # . . . . . C . #\n"
-                         + "3 # . # . . # C . #\n"
-                         + "4 # . x . x # P . #\n"
-                         + "5 # # # # # # # # #\n");
-    }
-
 }

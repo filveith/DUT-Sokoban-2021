@@ -19,7 +19,7 @@ public class Verification {
 
 		switch (selection) {
 			case 0:
-				System.out.println("Ou voulez vous jouer ? L(eft) R(ight) U(p) D(own)");
+				System.out.println("Ou voulez vous aller ? L(eft) R(ight) U(p) D(own)");
 				userInput = in.nextLine().trim();
 				userInput = checkUserMovement(userInput);
 				break;

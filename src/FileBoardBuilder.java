@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
 public class FileBoardBuilder {
 
     private int height = 0;
@@ -8,10 +9,9 @@ public class FileBoardBuilder {
     private int nbTarget = 0;
     private Case[][] targetList;
 
-    
     // #region setter/getter
-    
-    /** 
+
+    /**
      * Getter of the boards height
      * 
      * @return int
@@ -20,8 +20,7 @@ public class FileBoardBuilder {
         return this.height;
     }
 
-    
-    /** 
+    /**
      * Setter of the boards height
      * 
      * @param height
@@ -30,8 +29,7 @@ public class FileBoardBuilder {
         this.height = height;
     }
 
-    
-    /** 
+    /**
      * Getter of the boards width
      * 
      * @return int
@@ -40,8 +38,7 @@ public class FileBoardBuilder {
         return this.width;
     }
 
-    
-    /** 
+    /**
      * Setter of the boards width
      * 
      * @param width
@@ -50,8 +47,7 @@ public class FileBoardBuilder {
         this.width = width;
     }
 
-    
-    /** 
+    /**
      * Getter of the numbers of targets in the board
      * 
      * @return int
@@ -60,9 +56,8 @@ public class FileBoardBuilder {
         return this.nbTarget;
     }
 
-    
     /**
-     * Setter for the numbers of targets in the board 
+     * Setter for the numbers of targets in the board
      * 
      * @param nbTarget
      */
@@ -70,8 +65,7 @@ public class FileBoardBuilder {
         this.nbTarget = nbTarget;
     }
 
-    
-    /** 
+    /**
      * Getter for all the targets possition
      * 
      * @return Case[][]
@@ -80,7 +74,6 @@ public class FileBoardBuilder {
         return this.targetList;
     }
 
-    
     /**
      * Setter of the positon of a target
      * 
@@ -91,7 +84,7 @@ public class FileBoardBuilder {
     }
     // #endregion
 
-    /** 
+    /**
      * Check if a file exist with it's filename
      * 
      * @param fileName
@@ -100,17 +93,16 @@ public class FileBoardBuilder {
     public boolean checkIfFileExist(String fileName) {
         try {
             File myObj = new File("sokoban/board/" + fileName);
-            Scanner myReader = new Scanner(myObj);  //this is needed else it won't throw the execption
-            System.out.println("Le fichier \""+ fileName +"\" existe");
+            Scanner myReader = new Scanner(myObj); // this is needed else it won't throw the execption
+            System.out.println("Le fichier \"" + fileName + "\" existe");
             return true;
         } catch (Exception e) {
-            System.out.println("Le fichier \""+ fileName +"\" n'existe pas");
+            System.out.println("Le fichier \"" + fileName + "\" n'existe pas");
             return false;
         }
     }
 
-    
-    /** 
+    /**
      * Read the content of a file
      * 
      * @param file
@@ -128,21 +120,20 @@ public class FileBoardBuilder {
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Le fichier n'existe pas, merci d'en choisir un autre");
-            //System.out.println("-The file doesn't exist, taking an existing board \n");
-            //b = bb.hardCodedBoard(b);
-            //return b;
+            // System.out.println("-The file doesn't exist, taking an existing board \n");
+            // b = bb.hardCodedBoard(b);
+            // return b;
         }
         return b;
     }
 
-    
-    /** 
+    /**
      * Returns the content of a board as a Scanner
      * 
      * @param boardName
      * @return Scanner
      */
-    public Scanner boardInfos(String boardName){
+    public Scanner boardInfos(String boardName) {
         Scanner myReader = null;
         try {
             File myObj = new File("sokoban/board/" + boardName);
@@ -155,7 +146,7 @@ public class FileBoardBuilder {
                 height++;
             }
             size.close();
-            System.out.println("width = "+width+"    height = "+ height);
+            System.out.println("width = " + width + "    height = " + height);
         } catch (Exception e) {
             System.out.println("The file doesn't exist");
         }
