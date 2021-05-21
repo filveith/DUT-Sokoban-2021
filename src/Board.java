@@ -283,7 +283,7 @@ public class Board {
             else
                 return false;
         } else if (goToCase == 'C' && recall) {
-            return false;
+            checkIfMovePossible(xFinal, yFinal, movement, false);
         }
 
         return true;

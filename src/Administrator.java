@@ -20,8 +20,9 @@ public class Administrator {
     * @param args
     */
    public static void main(String[] args) {
-      System.out.println("ADMINISTRATION INTERFACE - USE WITH CAUTION");
       openConnexion();
+
+      System.out.println("ADMINISTRATION INTERFACE - USE WITH CAUTION");
 
       while (loop) {
          try {
@@ -29,9 +30,9 @@ public class Administrator {
             String command = v.userInput(1);
 
             switch (command) {
-               case "create": // Create a new empty pre-configured data base
+               /*case "create": // Create a new empty pre-configured data base
                   createDataBase();
-                  break;
+                  break;*/
                case "list": // List all the boards in the database
                   listBoards();
                   break;
@@ -105,9 +106,11 @@ public class Administrator {
          c.setAutoCommit(false);
          System.out.println("La base de données est ouverte");
          stmt = c.createStatement();
+         createDataBase();
 
       } catch (Exception e) {
          errorDataBase(e);
+         System.exit(0);
       }
    }
 

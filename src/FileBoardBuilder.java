@@ -8,6 +8,7 @@ public class FileBoardBuilder {
     private int width = 0;
     private int nbTarget = 0;
     private Case[][] targetList;
+    private final String url = "TP8-Sokoban/sokoban/board/";  //The url to all the board files and the database
 
     // #region setter/getter
 
@@ -92,7 +93,7 @@ public class FileBoardBuilder {
      */
     public boolean checkIfFileExist(String fileName) {
         try {
-            File myObj = new File("sokoban/board/" + fileName);
+            File myObj = new File(url + fileName);
             Scanner myReader = new Scanner(myObj); // this is needed else it won't throw the execption
             System.out.println("Le fichier \"" + fileName + "\" existe");
             return true;
@@ -112,7 +113,7 @@ public class FileBoardBuilder {
     Board readFile(String file, Board b) {
         BoardBuilder bb = new BoardBuilder();
         try {
-            File myObj = new File("sokoban/board/" + file);
+            File myObj = new File(url + file);
             Scanner myReader = new Scanner(myObj);
             Scanner myReader2 = new Scanner(myObj);
             b = bb.build(myReader, myReader2, b, file);
@@ -136,7 +137,7 @@ public class FileBoardBuilder {
     public Scanner boardInfos(String boardName) {
         Scanner myReader = null;
         try {
-            File myObj = new File("sokoban/board/" + boardName);
+            File myObj = new File(url + boardName);
             myReader = new Scanner(myObj);
             Scanner size = new Scanner(myObj);
 
