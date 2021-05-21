@@ -3,6 +3,13 @@ public class Verification {
     
 	static private Scanner in = new Scanner(System.in);
 	
+	
+	/**
+	 * Process all the differnts user inputs and returns them 
+	 * 
+	 * @param selection
+	 * @return String
+	 */
 	public static String userInput(int selection) {
 		FileBoardBuilder f = new FileBoardBuilder();
 		Administrator a = new Administrator();
@@ -66,6 +73,7 @@ public class Verification {
 				System.out.println("Que voulez vous faire ?\n"
 								+ "- List boards (list)\n"
 								+ "- Show board (show)\n"
+								+ "- Play the board <board_id> (play)\n"
 								+ "- Quit (quit)");
 				userInput = in.nextLine().trim();
 				userInput = checkPlayerCommandDataBase(userInput);
@@ -76,6 +84,13 @@ public class Verification {
 		return userInput;
 	}
 	
+	
+	/**
+	 * Verifies that the entered command is correct 
+	 * 
+	 * @param input
+	 * @return String
+	 */
 	private static String checkUserCommandDataBase(String input) {
 		input = input.toLowerCase();
 		String output = "noMatching";
@@ -89,11 +104,18 @@ public class Verification {
 		return output;
 	}
 
+	
+	/**
+	 * Same than checkUserCommandDataBase() but for the player, so no acces to add, create,delete command
+	 * 
+	 * @param input
+	 * @return String
+	 */
 	private static String checkPlayerCommandDataBase(String input) {
 		input = input.toLowerCase();
 		String output = "noMatching";
 		
-		if (input.equals("list") || input.equals("show") || input.equals("quit")) {
+		if (input.equals("list") || input.equals("show") || input.equals("play") || input.equals("quit")) {
 			return input;
 		} else {
 			System.out.println("Commande inconnue : "+input);
@@ -102,6 +124,13 @@ public class Verification {
 		return output;
 	}
 
+	
+	/**
+	 * For the player to choose the board he want's to play on 
+	 * 
+	 * @param b
+	 * @return Board
+	 */
 	public static Board playerMenu(Board b){
 		FileBoardBuilder f = new FileBoardBuilder();
 		System.out.println("Nom du plateau auquel vous voulez jouer");
@@ -112,7 +141,12 @@ public class Verification {
 		return b;
 	}
 	
-    private static String checkUserMovement(String input){
+    
+	/** 
+	 * @param input
+	 * @return String
+	 */
+	private static String checkUserMovement(String input){
         String output = "";
 		input = input.toUpperCase();
 

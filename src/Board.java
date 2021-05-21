@@ -40,27 +40,51 @@ public class Board {
         return targetList;
     }
 
+    
+    /** 
+     * @param height
+     */
     // #region Getter/Setter
     public void setHeight(int height) {
         this.height = height;
     }
 
+    
+    /** 
+     * @param width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getHeight() {
         return height;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getWidth() {
         return width;
     }
 
+    
+    /** 
+     * @param boardName
+     */
     public void setBoardName(String boardName){
         this.boardName = boardName;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getBoardName(){
         return boardName;
     }
@@ -90,6 +114,12 @@ public class Board {
         }
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     * @param length
+     */
     public void addHorizontalWall(int x, int y, int length) {
         for (int i = 0; i < length; i++) {
             setPoint(x, y, wallSign);
@@ -97,10 +127,21 @@ public class Board {
         }
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     */
     public void addWall(int x, int y) {
         setPoint(x, y, wallSign);
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     * @param length
+     */
     public void addVerticalWall(int x, int y, int length) {
         for (int i = 0; i <= length; i++) {
             setPoint(x, y, wallSign);
@@ -108,21 +149,42 @@ public class Board {
         }
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     */
     public void addBox(int x, int y) {
         setPoint(x, y, boxSign);
         nbBox++;
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     */
     public void addTarget(int x, int y) {
         setPoint(x, y, targetSign);
         targetList[x][y].setNature(targetSign);
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     */
     public void addPlayer(int x, int y) {
         p.setPositionOfPlayer(x, y);
         setPoint(p.getX(), p.getY(), playerSign);
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     * @param nature
+     */
     public void setPoint(int x, int y, char nature) {
         try {
             image[x][y].setNature(nature);
@@ -131,6 +193,10 @@ public class Board {
         }
 
     }
+    
+    /** 
+     * @param movementInput
+     */
     // #endregion
 
     public void movePlayer(String movementInput) {
@@ -164,6 +230,14 @@ public class Board {
         }
     }
 
+    
+    /** 
+     * @param xFinal
+     * @param yFinal
+     * @param movement
+     * @param recall
+     * @return boolean
+     */
     public boolean checkIfMovePossible(int xFinal, int yFinal, char movement, boolean recall) {
 
         char goToCase = image[xFinal][yFinal].getNature();
@@ -216,6 +290,10 @@ public class Board {
         }
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean checkIfWin() {
         int nbWinningBoxes = 0;
         for (int y = 0; y < height; y++) {
