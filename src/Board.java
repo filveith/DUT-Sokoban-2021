@@ -1,16 +1,12 @@
 public class Board {
 
-    private int height;
-    private int width;
+    private int height, width;
+    private int nbBox = 0;
+    final public char emptySpaceSign = '.', playerSign = 'P', boxSign = 'C', targetSign = 'x', wallSign = '#';
+    
     private String boardName;
-    final public char emptySpaceSign = '.';
-    final public char playerSign = 'P';
-    final public char boxSign = 'C';
-    final public char targetSign = 'x';
-    final public char wallSign = '#';
     private static Case[][] image;
     private Case[][] targetList;
-    private int nbBox = 0;
 
     Personnage p = new Personnage();
 
@@ -129,18 +125,6 @@ public class Board {
         }
     }
 
-    
-    /**
-     * Add a wall 
-     * 
-     * @param x
-     * @param y
-     */
-    public void addWall(int x, int y) {
-        setPoint(x, y, wallSign);
-    }
-
-    
     /** 
      * Add a vertical wall
      * 
@@ -155,6 +139,16 @@ public class Board {
         }
     }
 
+    
+    /**
+     * Add a wall 
+     * 
+     * @param x
+     * @param y
+     */
+    public void addWall(int x, int y) {
+        setPoint(x, y, wallSign);
+    }
     
     /** 
      * Add a box to the board
@@ -257,9 +251,8 @@ public class Board {
     public boolean checkIfMovePossible(int xFinal, int yFinal, char movement, boolean recall) {
 
         char goToCase = image[xFinal][yFinal].getNature();
-        System.out.println(goToCase + "   " +xFinal+  "   "+ yFinal);
+
         if (goToCase == '#' || goToCase == 'P') {
-            System.out.println("FALSE");
             return false;
         } else if (goToCase == 'C' && !recall) {
             int x = xFinal;
@@ -281,12 +274,11 @@ public class Board {
                     break;
             }
             if (checkIfMovePossible(x, y, movement, true)){
-                System.out.println("CHECK IF POSSIBLE");
                 setPoint(x, y, boxSign);
             }
             else return false;
         } else if (goToCase == 'C' && recall) {
-            checkIfMovePossible(xFinal, yFinal, movement, false);
+            return checkIfMovePossible(xFinal, yFinal, movement, false);
         }
 
         return true;
@@ -326,7 +318,7 @@ public class Board {
                         if (image[x][y].getNature() == 'C') {
                             nbWinningBoxes++;
                             if (nbWinningBoxes == nbBox) {
-                                System.out.println("\n_-* Félicitation vous avez gagné *-_\n\n");
+                                System.out.println("\n//--Félicitation vous avez gagné--\\\\ \n\n");
                                 return true;
                             }
                         }

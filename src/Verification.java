@@ -168,7 +168,11 @@ public class Verification {
 					System.exit(0);
 					break;
 				case 'N':
-					p.restartGame();
+					System.out.println("Etes vous sur de vouloir redémarrer la partie ? O/N ");
+					String userInput = in.nextLine().trim().toUpperCase();
+					if (userInput.charAt(0) == 'O') {
+						p.restartGame();
+					}
 					break;
 				case 'P':
 					p.changeBoard();

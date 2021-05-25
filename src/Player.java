@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class Player {
 
-    static private Board b, backup; //= new Board("Hard-Coded Example", 6, 6);
+    static private Board b; //= new Board("Hard-Coded Example", 6, 6);
     static private Verification v = new Verification();
     static private FileBoardBuilder f = new FileBoardBuilder();
     static private Administrator a = new Administrator();
     static private Scanner in = new Scanner(System.in);
-
+    static private boolean dataBaseUsed = false;
     
     /**
      * Main method of Player 
@@ -29,8 +29,12 @@ public class Player {
      * Restarts the game when the player asks it
      */
     public void restartGame(){
-        System.out.println("Redémarrage de la partie...");
-        b = f.readFile(b.getBoardName(), b);
+        System.out.println("Redémarrage de la partie... \n");
+        if (dataBaseUsed) {
+            b = a.loadBoard(b.getBoardName(), b);
+        } else {
+            b = f.readFile(b.getBoardName(), b);
+        }
     }
 
     
@@ -41,7 +45,8 @@ public class Player {
      */
     public void changeBoard(){
         System.out.println("Changement de plateau..");
-        chooseBoard(b);
+        b = null;
+        b = chooseBoard(b);
     }
     
     /**
@@ -58,7 +63,10 @@ public class Player {
             
             if (input.equals("bd")) {
                 b = a.playerAdministrator(b);
-                loop = false;
+                if (b != null) {
+                    dataBaseUsed = true;
+                    loop = false;
+                }
             } else if (input.equals("board")) {
                 input = in.nextLine().trim();
                 if(f.checkIfFileExist(input+".txt")){

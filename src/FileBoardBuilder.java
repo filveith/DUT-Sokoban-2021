@@ -147,7 +147,7 @@ public class FileBoardBuilder {
                 height++;
             }
             size.close();
-            System.out.println("width = " + width + "    height = " + height);
+            //System.out.println("width = " + width + "    height = " + height);
         } catch (Exception e) {
             System.out.println("The file doesn't exist");
         }

@@ -67,28 +67,6 @@ public class BoardBuilder {
         return b;
     }
 
-    /**
-     * A hard-coded board in case there is no board to play
-     * 
-     * @param b
-     * @return Board
-     */
-    public static Board hardCodedBoard(Board b) {
-        b = new Board("HardCodedBoard", 10, 5);
-        b.emptyBoard();
-        b.addHorizontalWall(0, 0, 9);
-        b.addHorizontalWall(0, 4, 10);
-        b.addVerticalWall(0, 0, 5);
-        b.addVerticalWall(9, 0, 5);
-        b.addWall(4, 1);
-        b.addTarget(1, 1);
-        b.addTarget(3, 1);
-        b.addBox(4, 2);
-        b.addBox(5, 2);
-        b.addPlayer(7, 2);
-        return b;
-    }
-
     // #region setter/getter
 
     /**

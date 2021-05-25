@@ -11,7 +11,7 @@ public class Administrator {
    static Connection c = null;
    static Statement stmt = null;
    static final Verification v = new Verification();
-   static boolean loop = true;
+   static boolean loop = true, quitter = false;
 
    
    /**
@@ -81,10 +81,13 @@ public class Administrator {
                   break;
                case "play":
                   b = loadBoard(v.userInput(5), b);
+                  if (quitter) {
+                     return b;
+                  }
                   break;
                case "quit": // Quit the data base (stops the programm)
                   closeDataBase();
-                  return b;
+                  return null;
                default:
                   break;
             }
@@ -109,7 +112,7 @@ public class Administrator {
 
       } catch (Exception e) {
          errorDataBase(e);
-         System.exit(0);
+         //System.exit(0);
       }
    }
 
@@ -263,8 +266,7 @@ public class Administrator {
    private static void insertRows(String board_id, int row_num, String description) {
       try {
 
-         String sql = "INSERT INTO ROWS(board_id,row_num,description) " + "VALUES (\'" + board_id + "\', \'" + row_num
-               + "\', " + description + ")";
+         String sql = "INSERT INTO ROWS(board_id,row_num,description) " + "VALUES (\'" + board_id + "\', \'" + row_num + "\', " + description + ")";
 
          stmt.executeUpdate(sql);
          c.commit();
@@ -290,7 +292,7 @@ public class Administrator {
 
          System.out.println("Table created successfully");
       } catch (Exception e) {
-         errorDataBase(e);
+         //errorDataBase(e);
       }
    }
 
@@ -327,9 +329,11 @@ public class Administrator {
             if(boucle == heightBoard+1){
                loop = false;
                System.out.println("Voulez vous jouer avec ce plateau ? (O/N)");
-               String userInput = in.nextLine().trim();
-               if (userInput.equals("N")) {
-                  loop = true;
+               String userInput = in.nextLine().trim().toUpperCase();
+               if (userInput.equals("O")) {
+                  quitter = true;
+               } else {
+                  return b;
                }
             } 
 
