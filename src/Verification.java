@@ -149,7 +149,7 @@ public class Verification {
 	private static String checkUserMovement(String input){
         String output = "";
 		input = input.toUpperCase();
-
+		Player p = new Player();
         for (char movement : input.toCharArray()) {
             switch (movement) {
 				case 'H':
@@ -168,11 +168,10 @@ public class Verification {
 					System.exit(0);
 					break;
 				case 'N':
-					Player p = new Player();
 					p.restartGame();
 					break;
 				case 'P':
-					
+					p.changeBoard();
 					break;
 				default:
 					if(movement == 'L' || movement == 'R' || movement == 'U' || movement == 'D'){

@@ -81,7 +81,6 @@ public class Administrator {
                   break;
                case "play":
                   b = loadBoard(v.userInput(5), b);
-                  // TODO: Player chooses a board (with board_id) and create the borad ect...
                   break;
                case "quit": // Quit the data base (stops the programm)
                   closeDataBase();
@@ -181,7 +180,7 @@ public class Administrator {
             //System.out.printf("| \"" + board_id + "\" | " + name + "           | " + nb_rows + " | " + nb_cols + " |");
          }
          rs.close();
-         System.out.println("\nOperation done successfully");
+         //System.out.println("\nOperation done successfully");
 
       } catch (Exception e) {
          errorDataBase(e);
@@ -245,10 +244,9 @@ public class Administrator {
                   + board_name + "\', " + nb_rows + ", " + nb_cols + ");";
 
             stmt.executeUpdate(sql);
-            c.commit();
-
-            System.out.println("Records created successfully");
+            c.commit(); 
          }
+         //System.out.println("Records created successfully");
       } catch (Exception e) {
          errorDataBase(e);
       }
@@ -270,7 +268,7 @@ public class Administrator {
 
          stmt.executeUpdate(sql);
          c.commit();
-         System.out.println("Records created successfully");
+         //System.out.println("Records created successfully");
       } catch (Exception e) {
          errorDataBase(e);
       }

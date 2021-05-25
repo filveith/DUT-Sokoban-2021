@@ -257,7 +257,9 @@ public class Board {
     public boolean checkIfMovePossible(int xFinal, int yFinal, char movement, boolean recall) {
 
         char goToCase = image[xFinal][yFinal].getNature();
+        System.out.println(goToCase + "   " +xFinal+  "   "+ yFinal);
         if (goToCase == '#' || goToCase == 'P') {
+            System.out.println("FALSE");
             return false;
         } else if (goToCase == 'C' && !recall) {
             int x = xFinal;
@@ -278,10 +280,11 @@ public class Board {
                 default:
                     break;
             }
-            if (checkIfMovePossible(x, y, movement, true))
+            if (checkIfMovePossible(x, y, movement, true)){
+                System.out.println("CHECK IF POSSIBLE");
                 setPoint(x, y, boxSign);
-            else
-                return false;
+            }
+            else return false;
         } else if (goToCase == 'C' && recall) {
             checkIfMovePossible(xFinal, yFinal, movement, false);
         }
@@ -309,7 +312,6 @@ public class Board {
         }
     }
 
-    
     /**
      * Check if all the boxs are on a target 
      * 

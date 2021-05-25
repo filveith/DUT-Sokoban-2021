@@ -15,12 +15,7 @@ public class Player {
      * @param args
      */
     public static void main(String[] args) {
-
-        //b = v.playerMenu(b);
-
         b = chooseBoard(b);
-
-        //b = f.readFile("Simple-One.txt", b);
         b.drawBoard();
     
         while (true) {
@@ -44,9 +39,9 @@ public class Player {
      * 
      * @param newBoard
      */
-    public void changeBoard(String newBoard){
-        System.out.println("Redémarrage de la partie...");
-        b = f.readFile(b.getBoardName(), b);
+    public void changeBoard(){
+        System.out.println("Changement de plateau..");
+        chooseBoard(b);
     }
     
     /**
@@ -71,7 +66,7 @@ public class Player {
                     loop = false;
                 }
             } else {
-                System.out.println("Commande entrée non-disponible,  'quit' pour quitter le jeu");
+                System.out.println("Commande entrée non-disponible, 'quit' pour quitter le jeu");
             }
         }
         return b;
