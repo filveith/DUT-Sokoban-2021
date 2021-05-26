@@ -57,8 +57,9 @@ public class Verification {
 			}
 			case 5:
 				while(true){
-					System.out.println("ID du plateau que voulez vous regarder ? ");
+					System.out.println("\nID du plateau que voulez vous regarder ? ");
 					userInput = in.nextLine().trim();
+					System.out.println("\n");
 					if(a.checkIfIDExist(userInput)) return userInput;
 					System.out.println("Le plateau n'existe pas");
 			}

@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+import javax.xml.transform.stream.StreamSource;
+
+import org.graalvm.compiler.code.SourceStackTraceBailoutException;
+
 public class Player {
 
     static private Board b; //= new Board("Hard-Coded Example", 6, 6);
@@ -15,13 +19,31 @@ public class Player {
      * @param args
      */
     public static void main(String[] args) {
+
+        System.out.println("\n\n"+
+                           "-----------------Bienvenue au Sokoban-----------------\n"+
+                           "|     -Le but du jeu est de pousser les caisses(C)   |\n"+
+                           "|                sur les cibles(x)                   |\n"+
+                           "|      -Votre joueur(P) peux pousser plusieurs       |\n"+
+                           "|               caisses à la fois                    |\n"+
+                           "|     -Vous pouver afficher l'aide a tout moment     |\n"+
+                           "|           en tapant H dans la console              |\n"+
+                           "------------------------------------------------------\n");
+
         b = chooseBoard(b);
         b.drawBoard();
-    
         while (true) {
             b.movePlayer(Verification.userInput(0));
             b.drawBoard();  
-            if(b.checkIfWin()) break;
+            if(b.checkIfWin()){
+                System.out.println("Voulez vous rejouer ? (O/N)");
+                String input = in.nextLine().trim();
+                if(input.equals("O")){
+                    changeBoard();
+                } else {
+                    break;
+                }
+            }
         }
     }
 
@@ -43,7 +65,7 @@ public class Player {
      * 
      * @param newBoard
      */
-    public void changeBoard(){
+    public static void changeBoard(){
         System.out.println("Changement de plateau..");
         b = null;
         b = chooseBoard(b);
@@ -58,8 +80,9 @@ public class Player {
     private static Board chooseBoard(Board b) {
         boolean loop = true;
         while (loop) {
-            System.out.println("Voulez vous choir un fichier de la base de donnée (bd) ou dans le dossier board (board)");
+            System.out.println("Voulez vous choir un fichier de la base de donnée (BD) ou dans le dossier board (board)");
             String input = in.nextLine().trim().toLowerCase();
+            System.out.println("\n---------------------------------------------------------------------------------------\n");
             
             if (input.equals("bd")) {
                 b = a.playerAdministrator(b);
@@ -68,6 +91,7 @@ public class Player {
                     loop = false;
                 }
             } else if (input.equals("board")) {
+                System.out.println("Quel est le nom du fichier texte contenant votre plateau ? (Sans le .txt à la fin)");
                 input = in.nextLine().trim();
                 if(f.checkIfFileExist(input+".txt")){
                     b = f.readFile(input+".txt", b);

@@ -188,7 +188,7 @@ public class Administrator {
       } catch (Exception e) {
          errorDataBase(e);
       }
-      
+      System.out.println("\n---------------------------------------------------------------------------------------\n");
    }
 
    
@@ -220,6 +220,7 @@ public class Administrator {
          System.out.println("error showBoard()");
          errorDataBase(e);
       }
+      System.out.println("\n---------------------------------------------------------------------------------------\n");
    }
 
    /** 
