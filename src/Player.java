@@ -1,9 +1,5 @@
 import java.util.Scanner;
 
-import javax.xml.transform.stream.StreamSource;
-
-import org.graalvm.compiler.code.SourceStackTraceBailoutException;
-
 public class Player {
 
     static private Board b; //= new Board("Hard-Coded Example", 6, 6);
@@ -33,7 +29,7 @@ public class Player {
         b = chooseBoard(b);
         b.drawBoard();
         while (true) {
-            b.movePlayer(Verification.userInput(0));
+            b.movePlayer(v.userInput(0));
             b.drawBoard();  
             if(b.checkIfWin()){
                 System.out.println("Voulez vous rejouer ? (O/N)");
