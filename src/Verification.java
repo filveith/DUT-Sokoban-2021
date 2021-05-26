@@ -91,7 +91,7 @@ public class Verification {
 	 * @param input
 	 * @return String
 	 */
-	private static String checkUserCommandDataBase(String input) {
+	public static String checkUserCommandDataBase(String input) {
 		input = input.toLowerCase();
 		String output = "noMatching";
 		
@@ -111,7 +111,7 @@ public class Verification {
 	 * @param input
 	 * @return String
 	 */
-	private static String checkPlayerCommandDataBase(String input) {
+	public static String checkPlayerCommandDataBase(String input) {
 		input = input.toLowerCase();
 		String output = "noMatching";
 		

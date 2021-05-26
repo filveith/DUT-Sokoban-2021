@@ -8,7 +8,7 @@ public class FileBoardBuilder {
     private int width = 0;
     private int nbTarget = 0;
     private Case[][] targetList;
-    private final String url = "TP8-Sokoban/sokoban/board/";  //The url to all the board files and the database
+    private final String url = "./sokoban/board/";  //The url to all the board files and the database
 
     // #region setter/getter
 
@@ -110,7 +110,7 @@ public class FileBoardBuilder {
      * @param b
      * @return Board
      */
-    Board readFile(String file, Board b) {
+    public Board readFile(String file, Board b) {
         BoardBuilder bb = new BoardBuilder();
         try {
             File myObj = new File(url + file);
